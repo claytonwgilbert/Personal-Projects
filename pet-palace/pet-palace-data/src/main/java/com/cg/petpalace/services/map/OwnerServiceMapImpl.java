@@ -2,9 +2,11 @@ package com.cg.petpalace.services.map;
 
 import com.cg.petpalace.model.Owner;
 import com.cg.petpalace.services.OwnerService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class OwnerServiceMapImpl extends AbstractBaseMap<Owner, Long> implements OwnerService {
     @Override
     public Owner findByLastName(String lastName) {
@@ -23,7 +25,7 @@ public class OwnerServiceMapImpl extends AbstractBaseMap<Owner, Long> implements
 
     @Override
     public Owner save(Owner owner) {
-        return super.save(owner.getId(), owner);
+        return super.save(owner);
     }
 
     @Override

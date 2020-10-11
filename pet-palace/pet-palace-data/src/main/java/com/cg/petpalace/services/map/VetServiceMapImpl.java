@@ -2,9 +2,11 @@ package com.cg.petpalace.services.map;
 
 import com.cg.petpalace.model.Vet;
 import com.cg.petpalace.services.VetService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class VetServiceMapImpl extends AbstractBaseMap<Vet, Long> implements VetService {
     @Override
     public Set<Vet> findAll() {
@@ -23,7 +25,7 @@ public class VetServiceMapImpl extends AbstractBaseMap<Vet, Long> implements Vet
 
     @Override
     public Vet save(Vet vet) {
-        return super.save(vet.getId(), vet);
+        return super.save(vet);
     }
 
     @Override
