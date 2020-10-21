@@ -11,6 +11,15 @@
 
     <artifactId>pet-palace-web</artifactId>
 
+    <properties>
+        <!-- Web dependencies for Java Web Optimizer or wro4j-->
+        <!-- Version update should also be done in wro.xml, petclinic.less and static resources: htmlHeader.tag and footer.tag-->
+        <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
+        <webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
+        <webjars-jquery.version>2.2.4</webjars-jquery.version>
+        <wro4j.version>1.8.0</wro4j.version> <!-- wro4j 1.0.0 requires Java 9 -->
+    </properties>
+
     <dependencies>
         <!--
             Here below we list the data module as a dependency so that its skinny jar is grabbed when maven builds this web
@@ -51,6 +60,61 @@
             </exclusions>
         </dependency>
 
+        <!-- Webjars for Java Web Optimizer or wro4j-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${webjars-jquery.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery-ui</artifactId>
+            <version>${webjars-jquery-ui.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${webjars-bootstrap.version}</version>
+        </dependency>
+
     </dependencies>
 
+    <build>
+        <plugins>
+            <!--Java Web Optimizer Plugin-->
+            <plugin>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-maven-plugin</artifactId>
+            <version>${wro4j.version}</version>
+            <executions>
+                <execution>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
+                <cssDestinationFolder>${project.build.directory}/petclinic/resources/css</cssDestinationFolder>
+                <wroFile>${basedir}/src/main/wro/wro.xml</wroFile>
+                <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
+                <contextFolder>${basedir}/src/main/webapp/resources/less</contextFolder>
+            </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.webjars</groupId>
+                    <artifactId>bootstrap</artifactId>
+                    <version>${webjars-bootstrap.version}</version>
+                </dependency>
+                <!-- Required for Java 9 and above -->
+                <dependency>
+                    <groupId>org.mockito</groupId>
+                    <artifactId>mockito-core</artifactId>
+                    <version>${mockito.version}</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+        </plugins>
+    </build>
 </project>

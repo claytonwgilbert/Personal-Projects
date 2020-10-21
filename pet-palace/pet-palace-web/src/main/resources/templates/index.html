@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--The th:replace below is combining this page with a 'master layout page we have already' which contains most of the html
+    for this page already. This way we don't have to have a bunch of pages containing duplicate html. We create one
+    general page and then inject specific html that fits whatever page we are on. This way everything has a similar feel.-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
 <head>
     <meta charset="UTF-8">
         <title>Pet Palace Landing Page</title>
 </head>
 <body>
 
-    <h1 th:text="'Welcome to Pet Palace...'"></h1>
+    <h2 th:text="${welcome}">Welcome</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <img class="img-responsive" src="../static/resources/images/pets.png" th:src="@{/resources/images/pets.png}"/>
+        </div>
+    </div>
 
 </body>
 </html>
