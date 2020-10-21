@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'vets')}">
 <head>
     <meta charset="UTF-8">
         <title>Pet Palace Vets Landing Page</title>
 </head>
 <body>
 
-    <h1 th:text="'List of Vets...'"></h1>
+    <h2>Vets</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="width: 120px;">ID</th>
+            <th style="width: 120px;">First Name</th>
+            <th style="width: 120px;">Last Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vet : ${vets}">
+            <td th:text="${vet?.getId()">1</td>
+            <td th:text="${vet.getFirstName()}">Joe</td>
+            <td th:text="${vet.getlastName()}">Somebody</td>
+        </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>
