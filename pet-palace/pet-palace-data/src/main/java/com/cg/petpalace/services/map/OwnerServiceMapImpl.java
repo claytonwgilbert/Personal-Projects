@@ -1,13 +1,25 @@
 package com.cg.petpalace.services.map;
 
 import com.cg.petpalace.model.Owner;
+import com.cg.petpalace.model.Pet;
 import com.cg.petpalace.services.OwnerService;
+import com.cg.petpalace.services.PetService;
+import com.cg.petpalace.services.PetTypeService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
 public class OwnerServiceMapImpl extends AbstractBaseMap<Owner, Long> implements OwnerService {
+
+    private PetTypeService petTypeService;
+    private PetService petService;
+
+    public OwnerServiceMapImpl(PetTypeService petTypeService, PetService petService) {
+        this.petTypeService = petTypeService;
+        this.petService = petService;
+    }
+
     @Override
     public Owner findByLastName(String lastName) {
         return null;
@@ -25,7 +37,27 @@ public class OwnerServiceMapImpl extends AbstractBaseMap<Owner, Long> implements
 
     @Override
     public Owner save(Owner owner) {
-        return super.save(owner);
+        if(owner != null){
+            if(owner.getPets() != null){
+                owner.getPets().forEach(pet -> {
+                    if(pet.getPetType() != null){
+                        if(pet.getPetType().getId() == null){
+                            pet.setPetType(petTypeService.save(pet.getPetType()));
+                        }
+                    }else{
+                        throw new RuntimeException("Pet must have PetType associated.");
+                    }
+
+                    if(pet.getId() == null){
+                        Pet savedPet = petService.save(pet);
+                        pet.setId(savedPet.getId());
+                    }
+                });
+            }
+            return super.save(owner);
+        }else{
+            return null;
+        }
     }
 
     @Override
