@@ -1,14 +1,21 @@
 package com.cg.petpalace.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="types")
 public class PetType extends BaseEntity{
 
-    private String petType;
+    @Column(name="name")
+    private String name;
 
     public String getPetType() {
-        return petType;
+        return name;
     }
 
     public void setPetType(String petType) {
-        this.petType = petType;
+        this.name = petType;
     }
 }

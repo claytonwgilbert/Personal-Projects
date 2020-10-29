@@ -10,4 +10,11 @@ public class IndexController {
     public String landingPage(){
         return "index";
     }
+
+    @RequestMapping("/oups")
+    public String oupsHandler(){
+        return "notfinished";
+    }
+
+
 }

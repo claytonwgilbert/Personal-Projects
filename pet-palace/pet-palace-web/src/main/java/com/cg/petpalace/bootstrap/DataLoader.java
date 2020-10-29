@@ -1,10 +1,7 @@
 package com.cg.petpalace.bootstrap;
 
 import com.cg.petpalace.model.*;
-import com.cg.petpalace.services.OwnerService;
-import com.cg.petpalace.services.PetTypeService;
-import com.cg.petpalace.services.SpecialtyService;
-import com.cg.petpalace.services.VetService;
+import com.cg.petpalace.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +14,14 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
+    private final VisitService visitService;
 
-    public DataLoader(VetService vetService, OwnerService ownerService, PetTypeService petTypeService, SpecialtyService specialtyService){
+    public DataLoader(VetService vetService, OwnerService ownerService, PetTypeService petTypeService, SpecialtyService specialtyService, VisitService visitService){
         this.vetService = vetService;
         this.ownerService = ownerService;
         this.petTypeService = petTypeService;
         this.specialtyService = specialtyService;
+        this.visitService = visitService;
     }
 
     //Spring will run this as soon as the application starts first thing. Great place to load up initial data for the
@@ -65,14 +64,21 @@ public class DataLoader implements CommandLineRunner {
             eddy.setCity("Springfield");
             eddy.setPhone("5556547789");
 
-            Pet eddysPet = new Pet();
-            eddysPet.setName("Constanzo");
-            eddysPet.setPetType(savedDogPetType);
-            eddysPet.setBirthDate(LocalDate.now());
-            eddysPet.setOwner(eddy);
-            eddy.getPets().add(eddysPet);
+            Pet constanzo = new Pet();
+            constanzo.setName("Constanzo");
+            constanzo.setPetType(savedDogPetType);
+            constanzo.setBirthDate(LocalDate.now());
+            constanzo.setOwner(eddy);
+            eddy.getPets().add(constanzo);
 
             ownerService.save(eddy);
+
+            Visit constanzoVisit = new Visit();
+            constanzoVisit.setDate(LocalDate.now());
+            constanzoVisit.setPet(constanzo);
+            constanzoVisit.setDescription("Appointment for ticks/fleas.");
+
+            visitService.save(constanzoVisit);
 
             Owner laura = new Owner();
             laura.setFirstName("Laura");
@@ -81,12 +87,12 @@ public class DataLoader implements CommandLineRunner {
             laura.setCity("Springfield");
             laura.setPhone("5557003177");
 
-            Pet laurasPet = new Pet();
-            laurasPet.setName("Sheela");
-            laurasPet.setPetType(savedCatPetType);
-            laurasPet.setBirthDate(LocalDate.now());
-            laurasPet.setOwner(laura);
-            laura.getPets().add(laurasPet);
+            Pet sheela = new Pet();
+            sheela.setName("Sheela");
+            sheela.setPetType(savedCatPetType);
+            sheela.setBirthDate(LocalDate.now());
+            sheela.setOwner(laura);
+            laura.getPets().add(sheela);
 
             ownerService.save(laura);
 
