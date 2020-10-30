@@ -10,11 +10,11 @@ import java.util.Set;
 
 @Service
 @Profile("springdatajpa")
-public class OwnerSDJpaService implements OwnerService {
+public class OwnerSDJpaServiceImpl implements OwnerService {
 
     private final OwnerRepository ownerRepository;
 
-    public OwnerSDJpaService(OwnerRepository ownerRepository) {
+    public OwnerSDJpaServiceImpl(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
     }
 

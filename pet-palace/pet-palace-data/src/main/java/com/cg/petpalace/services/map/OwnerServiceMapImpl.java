@@ -5,11 +5,13 @@ import com.cg.petpalace.model.Pet;
 import com.cg.petpalace.services.OwnerService;
 import com.cg.petpalace.services.PetService;
 import com.cg.petpalace.services.PetTypeService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default","map"})
 public class OwnerServiceMapImpl extends AbstractBaseMap<Owner, Long> implements OwnerService {
 
     private PetTypeService petTypeService;

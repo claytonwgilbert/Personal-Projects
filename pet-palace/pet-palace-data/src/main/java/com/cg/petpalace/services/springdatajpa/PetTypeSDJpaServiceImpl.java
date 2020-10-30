@@ -1,7 +1,7 @@
 package com.cg.petpalace.services.springdatajpa;
 
-import com.cg.petpalace.model.Visit;
-import com.cg.petpalace.services.VisitService;
+import com.cg.petpalace.model.PetType;
+import com.cg.petpalace.services.PetTypeService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -9,19 +9,19 @@ import java.util.Set;
 
 @Service
 @Profile("springdatajpa")
-public class VisitSDJpaService implements VisitService {
+public class PetTypeSDJpaServiceImpl implements PetTypeService {
     @Override
-    public Set<Visit> findAll() {
+    public Set<PetType> findAll() {
         return null;
     }
 
     @Override
-    public Visit findById(Long aLong) {
+    public PetType findById(Long aLong) {
         return null;
     }
 
     @Override
-    public Visit save(Visit object) {
+    public PetType save(PetType object) {
         return null;
     }
 
@@ -31,7 +31,7 @@ public class VisitSDJpaService implements VisitService {
     }
 
     @Override
-    public void delete(Visit visit) {
+    public void delete(PetType petType) {
 
     }
 }
