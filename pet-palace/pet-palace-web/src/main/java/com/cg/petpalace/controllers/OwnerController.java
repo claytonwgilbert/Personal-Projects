@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -33,7 +34,7 @@ public class OwnerController {
     }
 
     @GetMapping
-    public String processFindOwnersForm(Owner owner, Model model, BindingResult result){
+    public String processFindOwnersForm(@Valid Owner owner, Model model, BindingResult result){
 
         if(owner.getLastName() == null){
             owner.setLastName("");
@@ -67,7 +68,7 @@ public class OwnerController {
     }
 
     @PostMapping("/new")
-    public String processCreateOwnerForm(Owner owner, BindingResult results){
+    public String processCreateOwnerForm(@Valid Owner owner, BindingResult results){
         if(results.hasErrors()){
             return "owners/createOrUpdateOwnerForm";
         }
@@ -82,7 +83,7 @@ public class OwnerController {
     }
 
     @PostMapping("/{ownerId}/edit")
-    public String processUpdateOwnerForm(@PathVariable("ownerId") Long id, Owner owner, BindingResult result){
+    public String processUpdateOwnerForm(@PathVariable("ownerId") Long id, @Valid Owner owner, BindingResult result){
         if(result.hasErrors()){
             return "owners/createOrUpdateOwnerForm";
         }else{

@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @Controller
@@ -45,7 +46,7 @@ public class PetController {
     }
 
     @GetMapping("/pets/new")
-    public String displayCreatePetForm(Owner owner, Model model){
+    public String displayCreatePetForm(@Valid Owner owner, Model model){
         Pet pet = new Pet();
         owner.getPets().add(pet);
         pet.setOwner(owner);
@@ -76,7 +77,7 @@ public class PetController {
     }
 
     @PostMapping("/pets/{petId}/edit")
-    public String processUpdatePetForm(@PathVariable("petId") Long id, Pet pet, Owner owner, BindingResult results, Model model){
+    public String processUpdatePetForm(@PathVariable("petId") Long petId, Pet pet, Owner owner, BindingResult results, Model model){
         if(results.hasErrors()){
             pet.setOwner(owner);
             model.addAttribute("pet", pet);
