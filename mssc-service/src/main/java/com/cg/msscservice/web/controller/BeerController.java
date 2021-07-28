@@ -13,18 +13,19 @@ public class BeerController {
 
     @GetMapping({"/{beerId}"})
     public ResponseEntity<BeerDto> getBeerById(@PathVariable UUID beerId){
+        return null; //todo
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void saveNewBeer(@RequestBody BeerDto beer){
-
+        //todo
     }
 
 
     @PutMapping({"/{beerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateBeer(@PathVariable UUID beerId, @RequestBody BeerDto beer){
-
+        //todo
     }
 }
