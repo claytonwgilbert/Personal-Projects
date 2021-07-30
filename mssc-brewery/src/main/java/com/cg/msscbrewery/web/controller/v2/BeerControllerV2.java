@@ -10,6 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v2/beer")
@@ -29,7 +33,7 @@ public class BeerControllerV2 {
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody BeerDtoV2 beer){
+    public ResponseEntity handlePost(@Valid @RequestBody BeerDtoV2 beer){
         BeerDtoV2 savedBeer = beerService.saveNewBeer(beer);
 
         HttpHeaders headers = new HttpHeaders();
@@ -40,7 +44,7 @@ public class BeerControllerV2 {
 
     @PutMapping({"/{beerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void handleUpdate(@PathVariable UUID beerId, @RequestBody BeerDtoV2 beer){
+    public void handleUpdate(@PathVariable UUID beerId, @Valid @RequestBody BeerDtoV2 beer){
         beerService.updateBeer(beerId, beer);
     }
 
@@ -49,4 +53,5 @@ public class BeerControllerV2 {
     public void handleDelete(@PathVariable UUID beerId){
         beerService.deleteBeer(beerId);
     }
+
 }
