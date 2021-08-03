@@ -1,6 +1,8 @@
 package com.cg.msscservice.web.controller;
 
+import com.cg.msscservice.bootstrap.BeerLoader;
 import com.cg.msscservice.domain.Beer;
+import com.cg.msscservice.services.BeerService;
 import com.cg.msscservice.web.model.BeerDto;
 import com.cg.msscservice.web.model.BeerStyleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,6 +30,9 @@ class BeerControllerTest {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @MockBean
+    BeerService beerService;
 
     @Test
     void getBeerById() {
@@ -58,7 +64,7 @@ class BeerControllerTest {
         return BeerDto.builder()
                 .beerName("Mango Bobs")
                 .beerStyle(BeerStyleEnum.IPA)
-                .upc(155001541002l)
+                .upc(BeerLoader.BEER_1_UPC)
                 .price(new BigDecimal("11.95"))
                 .build();
     }
