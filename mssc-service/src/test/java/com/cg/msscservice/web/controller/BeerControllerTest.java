@@ -18,6 +18,9 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,12 +39,15 @@ class BeerControllerTest {
 
     @Test
     void getBeerById() {
+        given(beerService.getById(any())).willReturn(getValidBeerDto());
     }
 
     @Test
     void saveNewBeer() throws Exception{
         BeerDto beer = getValidBeerDto();
         String beerDtoJson = objectMapper.writeValueAsString(beer);
+
+        given(beerService.saveNewBeer(any())).willReturn(getValidBeerDto());
 
         mockMvc.perform(post("/api/v1/beer/")
                 .contentType(MediaType.APPLICATION_JSON)
