@@ -1,7 +1,6 @@
 package com.cg.msscservice.web.controller;
 
 import com.cg.msscservice.bootstrap.BeerLoader;
-import com.cg.msscservice.domain.Beer;
 import com.cg.msscservice.services.BeerService;
 import com.cg.msscservice.web.model.BeerDto;
 import com.cg.msscservice.web.model.BeerStyleEnum;
@@ -9,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,8 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -39,7 +37,7 @@ class BeerControllerTest {
 
     @Test
     void getBeerById() {
-        given(beerService.getById(any())).willReturn(getValidBeerDto());
+        given(beerService.getById(any(), anyBoolean())).willReturn(getValidBeerDto());
     }
 
     @Test
