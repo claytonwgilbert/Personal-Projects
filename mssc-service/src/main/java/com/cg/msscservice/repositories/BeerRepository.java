@@ -2,6 +2,7 @@ package com.cg.msscservice.repositories;
 
 
 import com.cg.msscservice.domain.Beer;
+import com.cg.msscservice.web.model.BeerDto;
 import com.cg.msscservice.web.model.BeerStyleEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,5 +18,5 @@ public interface BeerRepository extends PagingAndSortingRepository<Beer, UUID> {
 
     Page<Beer> findAllByBeerNameAndBeerStyle(String beerName, BeerStyleEnum beerStyle, Pageable pageable);
 
-
+    Beer findByUpc(String upc);
 }

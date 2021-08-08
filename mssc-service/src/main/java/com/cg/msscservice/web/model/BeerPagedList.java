@@ -7,9 +7,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class BeerPagedList extends PageImpl<BeerDto> {
+public class BeerPagedList extends PageImpl<BeerDto> implements Serializable {
+
+    static final long serialVersionUID = 1088772483645103745L;
 
     //We are using a JsonCreator to help bind a complicated paging object given by Spring so that we can map that paging
     //object to a Json POJO that we can then easily send back to the client.
