@@ -1,10 +1,8 @@
 package com.cg.commerceapp.config;
 
-import com.cg.commerceapp.entity.Country;
-import com.cg.commerceapp.entity.Product;
-import com.cg.commerceapp.entity.ProductCategory;
-import com.cg.commerceapp.entity.State;
+import com.cg.commerceapp.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -20,6 +18,9 @@ import java.util.Set;
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
 
+    @Value("${allowed.origins}")
+    private String[] allowedOrigins;
+
     private EntityManager entityManager;
 
     @Autowired
@@ -30,23 +31,22 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         // - Actions we don't want supported...
-        HttpMethod[] unsupportedActions = {HttpMethod.DELETE, HttpMethod.POST, HttpMethod.PUT};
+        HttpMethod[] unsupportedActions = {HttpMethod.DELETE, HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH};
 
-        // - Lockdown Product repository to only GET calls
+        // - Lockdown repositories to only GET calls
         disableHttpMethods(Product.class, config, unsupportedActions);
-
-        // - Lockdown ProductCategory repository to only GET calls
         disableHttpMethods(ProductCategory.class, config, unsupportedActions);
-
-        // - Lockdown Country repository to only GET calls
         disableHttpMethods(Country.class, config, unsupportedActions);
-
-        // - Lockdown State repository to only GET calls
         disableHttpMethods(State.class, config, unsupportedActions);
-
+        disableHttpMethods(Order.class, config, unsupportedActions);
 
         // - Call internal helper method to expose id of categories
         exposedIds(config);
+
+        // - Configuring our cors settings here instead of the @CrossOrigin annotation on all the repositories so that
+        //our front end application can communicate with our server code
+        // - config.getBasePath() is reading our property from the properties file
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowedOrigins);
     }
 
     private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] unsupportedActions) {

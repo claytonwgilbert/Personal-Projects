@@ -34,6 +34,19 @@ public class CheckoutServiceImpl implements CheckoutService {
         order.setShippingAddress(purchase.getShippingAddress());
 
         Customer customer = purchase.getCustomer();
+
+        //Get email from customer to check if he is already in db
+        String customerEmail = customer.getEmail();
+
+        Customer fromDbCustomer = customerRepository.findByEmail(customerEmail);
+
+        if(fromDbCustomer != null){
+            //Customer alreadys exists in db...set customer details from db to new order to prevent duplicate customers
+            //from being added to the db while allowing new orders to still be added and assigned to this one customer
+            //which is done after this if statement.
+            customer = fromDbCustomer;
+        }
+
         customer.addOrder(order);
 
         customerRepository.save(customer);
