@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
@@ -28,6 +28,7 @@ import{
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth, injector) => {
@@ -40,7 +41,7 @@ const oktaConfig = Object.assign({
 
 //Order is important, most specific to generic
 const routes: Routes = [
-  {path: 'order-history', component: MembersPageComponent, canActivate: [ OktaAuthGuard ]}, 
+  {path: 'order-history', component: OrderHistoryComponent, canActivate: [ OktaAuthGuard ]}, 
   {path: 'members', component: MembersPageComponent, canActivate: [ OktaAuthGuard ]}, //if user is authenticated, the user will be allowed access to route, otherwise they will be sent to login page
   {path: 'login/callback', component: OktaCallbackComponent}, //once user is authenticated, they are automatically redirected to your app, handles security tokens as well automatically
   {path: 'login', component: LoginComponent}, //custom login component we created
@@ -78,7 +79,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService, { provide: OKTA_CONFIG, useValue: oktaConfig}],
+  providers: [ProductService, { provide: OKTA_CONFIG, useValue: oktaConfig}, 
+              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
