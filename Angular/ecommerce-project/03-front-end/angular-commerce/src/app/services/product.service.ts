@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Product } from '../common/product';
 import { ProductCategory } from '../common/product-category';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,8 @@ import { ProductCategory } from '../common/product-category';
 export class ProductService {
 
   //These are the url's Spring needs on the back end in order to reach the rest end points
-  private baseUrl = 'http://localhost:8080/api/products';
-
-  private categoryUrl = 'http://localhost:8080/api/product-category';
-
+  private baseUrl = environment.luv2shopApiUrl + '/products';
+  private categoryUrl = environment.luv2shopApiUrl + '/product-category';
 
   constructor(private httpClient: HttpClient) { }
 
