@@ -23,5 +23,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // - custom unauthorized message for 401 errors
         Okta.configureResourceServer401ResponseBody(http);
+
+        // - disable CSRF to allow us to POST and bypass default security protection. Use of cookies is needed for this
+        // not to be needed.
+        http.csrf().disable();
     }
 }
