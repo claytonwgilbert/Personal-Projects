@@ -19,7 +19,7 @@ package com.cg.beerorderservice.web.mappers;
 
 
 import com.cg.beerorderservice.domain.BeerOrder;
-import com.cg.beerorderservice.web.model.BeerOrderDto;
+import com.cg.brewery.model.BeerOrderDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

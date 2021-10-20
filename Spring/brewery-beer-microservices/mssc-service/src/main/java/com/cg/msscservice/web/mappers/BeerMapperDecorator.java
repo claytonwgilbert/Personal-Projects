@@ -2,7 +2,7 @@ package com.cg.msscservice.web.mappers;
 
 import com.cg.msscservice.domain.Beer;
 import com.cg.msscservice.services.inventory.BeerInventoryService;
-import com.cg.msscservice.web.model.BeerDto;
+import com.cg.brewery.model.BeerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BeerMapperDecorator implements BeerMapper {

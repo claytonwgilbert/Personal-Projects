@@ -1,7 +1,7 @@
 package com.cg.beerorderservice.services;
 
 
-import com.cg.beerorderservice.web.model.BeerDto;
+import com.cg.brewery.model.BeerDto;
 
 import java.util.Optional;
 import java.util.UUID;

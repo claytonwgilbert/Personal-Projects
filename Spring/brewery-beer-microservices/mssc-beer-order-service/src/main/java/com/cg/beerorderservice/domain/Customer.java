@@ -18,7 +18,6 @@ package com.cg.beerorderservice.domain;
 
 import lombok.*;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -26,9 +25,6 @@ import java.sql.Timestamp;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-01-26.
- */
 @Getter
 @Setter
 @NoArgsConstructor

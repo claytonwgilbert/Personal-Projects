@@ -3,7 +3,7 @@ package com.cg.beerinventoryservice.web.controllers;
 
 import com.cg.beerinventoryservice.repositories.BeerInventoryRepository;
 import com.cg.beerinventoryservice.web.mappers.BeerInventoryMapper;
-import com.cg.beerinventoryservice.web.model.BeerInventoryDto;
+import com.cg.brewery.model.BeerInventoryDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -2,7 +2,7 @@ package com.cg.msscservice.services.brewing;
 
 import com.cg.msscservice.config.JmsConfig;
 import com.cg.msscservice.domain.Beer;
-import com.cg.common.events.BrewBeerEvent;
+import com.cg.brewery.model.events.BrewBeerEvent;
 import com.cg.msscservice.repositories.BeerRepository;
 import com.cg.msscservice.services.inventory.BeerInventoryService;
 import com.cg.msscservice.web.mappers.BeerMapper;

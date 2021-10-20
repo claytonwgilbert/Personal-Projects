@@ -2,10 +2,10 @@ package com.cg.beerorderservice.web.mappers;
 
 import com.cg.beerorderservice.domain.BeerOrder;
 import com.cg.beerorderservice.domain.BeerOrderLine;
+import com.cg.beerorderservice.domain.BeerOrderStatusEnum;
 import com.cg.beerorderservice.domain.Customer;
-import com.cg.beerorderservice.domain.OrderStatusEnum;
-import com.cg.beerorderservice.web.model.BeerOrderDto;
-import com.cg.beerorderservice.web.model.BeerOrderLineDto;
+import com.cg.brewery.model.BeerOrderDto;
+import com.cg.brewery.model.BeerOrderLineDto;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-10-13T05:35:30-0400",
+    date = "2021-10-19T18:51:40-0400",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.8 (Oracle Corporation)"
 )
 @Component
@@ -45,7 +45,9 @@ public class BeerOrderMapperImpl implements BeerOrderMapper {
         beerOrderDto.setLastModifiedDate( dateMapper.asOffsetDateTime( beerOrder.getLastModifiedDate() ) );
         beerOrderDto.setCustomerRef( beerOrder.getCustomerRef() );
         beerOrderDto.setBeerOrderLines( beerOrderLineSetToBeerOrderLineDtoList( beerOrder.getBeerOrderLines() ) );
-        beerOrderDto.setOrderStatus( orderStatusEnumToOrderStatusEnum( beerOrder.getOrderStatus() ) );
+        if ( beerOrder.getOrderStatus() != null ) {
+            beerOrderDto.setOrderStatus( beerOrder.getOrderStatus().name() );
+        }
         beerOrderDto.setOrderStatusCallbackUrl( beerOrder.getOrderStatusCallbackUrl() );
 
         return beerOrderDto;
@@ -67,7 +69,9 @@ public class BeerOrderMapperImpl implements BeerOrderMapper {
         beerOrder.setLastModifiedDate( dateMapper.asTimestamp( dto.getLastModifiedDate() ) );
         beerOrder.setCustomerRef( dto.getCustomerRef() );
         beerOrder.setBeerOrderLines( beerOrderLineDtoListToBeerOrderLineSet( dto.getBeerOrderLines() ) );
-        beerOrder.setOrderStatus( orderStatusEnumToOrderStatusEnum1( dto.getOrderStatus() ) );
+        if ( dto.getOrderStatus() != null ) {
+            beerOrder.setOrderStatus( Enum.valueOf( BeerOrderStatusEnum.class, dto.getOrderStatus() ) );
+        }
         beerOrder.setOrderStatusCallbackUrl( dto.getOrderStatusCallbackUrl() );
 
         return beerOrder;
@@ -101,26 +105,6 @@ public class BeerOrderMapperImpl implements BeerOrderMapper {
         return list;
     }
 
-    protected com.cg.beerorderservice.web.model.OrderStatusEnum orderStatusEnumToOrderStatusEnum(OrderStatusEnum orderStatusEnum) {
-        if ( orderStatusEnum == null ) {
-            return null;
-        }
-
-        com.cg.beerorderservice.web.model.OrderStatusEnum orderStatusEnum1;
-
-        switch ( orderStatusEnum ) {
-            case NEW: orderStatusEnum1 = com.cg.beerorderservice.web.model.OrderStatusEnum.NEW;
-            break;
-            case READY: orderStatusEnum1 = com.cg.beerorderservice.web.model.OrderStatusEnum.READY;
-            break;
-            case PICKED_UP: orderStatusEnum1 = com.cg.beerorderservice.web.model.OrderStatusEnum.PICKED_UP;
-            break;
-            default: throw new IllegalArgumentException( "Unexpected enum constant: " + orderStatusEnum );
-        }
-
-        return orderStatusEnum1;
-    }
-
     protected Set<BeerOrderLine> beerOrderLineDtoListToBeerOrderLineSet(List<BeerOrderLineDto> list) {
         if ( list == null ) {
             return null;
@@ -132,25 +116,5 @@ public class BeerOrderMapperImpl implements BeerOrderMapper {
         }
 
         return set;
-    }
-
-    protected OrderStatusEnum orderStatusEnumToOrderStatusEnum1(com.cg.beerorderservice.web.model.OrderStatusEnum orderStatusEnum) {
-        if ( orderStatusEnum == null ) {
-            return null;
-        }
-
-        OrderStatusEnum orderStatusEnum1;
-
-        switch ( orderStatusEnum ) {
-            case NEW: orderStatusEnum1 = OrderStatusEnum.NEW;
-            break;
-            case READY: orderStatusEnum1 = OrderStatusEnum.READY;
-            break;
-            case PICKED_UP: orderStatusEnum1 = OrderStatusEnum.PICKED_UP;
-            break;
-            default: throw new IllegalArgumentException( "Unexpected enum constant: " + orderStatusEnum );
-        }
-
-        return orderStatusEnum1;
     }
 }

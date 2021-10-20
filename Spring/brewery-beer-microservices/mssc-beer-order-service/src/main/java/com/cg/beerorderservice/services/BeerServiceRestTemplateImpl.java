@@ -1,6 +1,6 @@
 package com.cg.beerorderservice.services;
 
-import com.cg.beerorderservice.web.model.BeerDto;
+import com.cg.brewery.model.BeerDto;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;

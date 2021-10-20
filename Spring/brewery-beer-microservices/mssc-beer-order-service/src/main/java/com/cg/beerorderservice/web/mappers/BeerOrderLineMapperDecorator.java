@@ -2,8 +2,8 @@ package com.cg.beerorderservice.web.mappers;
 
 import com.cg.beerorderservice.domain.BeerOrderLine;
 import com.cg.beerorderservice.services.BeerService;
-import com.cg.beerorderservice.web.model.BeerDto;
-import com.cg.beerorderservice.web.model.BeerOrderLineDto;
+import com.cg.brewery.model.BeerDto;
+import com.cg.brewery.model.BeerOrderLineDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 

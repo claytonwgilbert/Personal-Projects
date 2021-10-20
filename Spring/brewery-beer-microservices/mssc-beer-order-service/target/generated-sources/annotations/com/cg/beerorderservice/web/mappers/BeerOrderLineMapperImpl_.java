@@ -1,7 +1,7 @@
 package com.cg.beerorderservice.web.mappers;
 
 import com.cg.beerorderservice.domain.BeerOrderLine;
-import com.cg.beerorderservice.web.model.BeerOrderLineDto;
+import com.cg.brewery.model.BeerOrderLineDto;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-10-13T05:35:30-0400",
+    date = "2021-10-19T18:51:40-0400",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.8 (Oracle Corporation)"
 )
 @Component
@@ -36,6 +36,7 @@ public class BeerOrderLineMapperImpl_ implements BeerOrderLineMapper {
         beerOrderLineDto.setUpc( line.getUpc() );
         beerOrderLineDto.setBeerId( line.getBeerId() );
         beerOrderLineDto.setOrderQuantity( line.getOrderQuantity() );
+        beerOrderLineDto.setQuantityAllocated( line.getQuantityAllocated() );
 
         return beerOrderLineDto;
     }
@@ -57,6 +58,7 @@ public class BeerOrderLineMapperImpl_ implements BeerOrderLineMapper {
         beerOrderLine.setBeerId( dto.getBeerId() );
         beerOrderLine.setUpc( dto.getUpc() );
         beerOrderLine.setOrderQuantity( dto.getOrderQuantity() );
+        beerOrderLine.setQuantityAllocated( dto.getQuantityAllocated() );
 
         return beerOrderLine;
     }

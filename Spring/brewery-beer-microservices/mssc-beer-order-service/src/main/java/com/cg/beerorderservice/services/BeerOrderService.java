@@ -19,8 +19,8 @@ package com.cg.beerorderservice.services;
 
 
 
-import com.cg.beerorderservice.web.model.BeerOrderDto;
-import com.cg.beerorderservice.web.model.BeerOrderPagedList;
+import com.cg.brewery.model.BeerOrderDto;
+import com.cg.brewery.model.BeerOrderPagedList;
 import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;

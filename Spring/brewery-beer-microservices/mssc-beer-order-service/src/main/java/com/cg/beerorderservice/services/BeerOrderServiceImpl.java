@@ -1,31 +1,14 @@
-/*
- *  Copyright 2019 the original author or authors.
- *
- * This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package com.cg.beerorderservice.services;
 
 
 import com.cg.beerorderservice.domain.BeerOrder;
+import com.cg.beerorderservice.domain.BeerOrderStatusEnum;
 import com.cg.beerorderservice.domain.Customer;
-import com.cg.beerorderservice.domain.OrderStatusEnum;
 import com.cg.beerorderservice.repositories.BeerOrderRepository;
 import com.cg.beerorderservice.repositories.CustomerRepository;
 import com.cg.beerorderservice.web.mappers.BeerOrderMapper;
-import com.cg.beerorderservice.web.model.BeerOrderDto;
-import com.cg.beerorderservice.web.model.BeerOrderPagedList;
+import com.cg.brewery.model.BeerOrderDto;
+import com.cg.brewery.model.BeerOrderPagedList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
@@ -84,7 +67,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             BeerOrder beerOrder = beerOrderMapper.dtoToBeerOrder(beerOrderDto);
             beerOrder.setId(null); //should not be set by outside client
             beerOrder.setCustomer(customerOptional.get());
-            beerOrder.setOrderStatus(OrderStatusEnum.NEW);
+            beerOrder.setOrderStatus(BeerOrderStatusEnum.NEW);
 
             beerOrder.getBeerOrderLines().forEach(line -> line.setBeerOrder(beerOrder));
 
@@ -109,7 +92,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     @Override
     public void pickupOrder(UUID customerId, UUID orderId) {
         BeerOrder beerOrder = getOrder(customerId, orderId);
-        beerOrder.setOrderStatus(OrderStatusEnum.PICKED_UP);
+        beerOrder.setOrderStatus(BeerOrderStatusEnum.PICKED_UP);
 
         beerOrderRepository.save(beerOrder);
     }

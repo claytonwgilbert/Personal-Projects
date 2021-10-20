@@ -2,12 +2,10 @@ package com.cg.msscservice.repositories;
 
 
 import com.cg.msscservice.domain.Beer;
-import com.cg.msscservice.web.model.BeerDto;
-import com.cg.msscservice.web.model.BeerStyleEnum;
+import com.cg.brewery.model.BeerStyleEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.UUID;
 

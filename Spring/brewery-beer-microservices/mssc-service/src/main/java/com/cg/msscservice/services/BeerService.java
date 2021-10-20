@@ -1,8 +1,8 @@
 package com.cg.msscservice.services;
 
-import com.cg.msscservice.web.model.BeerDto;
-import com.cg.msscservice.web.model.BeerPagedList;
-import com.cg.msscservice.web.model.BeerStyleEnum;
+import com.cg.brewery.model.BeerDto;
+import com.cg.brewery.model.BeerPagedList;
+import com.cg.brewery.model.BeerStyleEnum;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.UUID;

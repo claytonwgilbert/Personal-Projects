@@ -2,10 +2,10 @@ package com.cg.msscservice.services.brewing;
 
 import com.cg.msscservice.config.JmsConfig;
 import com.cg.msscservice.domain.Beer;
-import com.cg.common.events.BrewBeerEvent;
-import com.cg.common.events.NewInventoryEvent;
+import com.cg.brewery.model.events.BrewBeerEvent;
+import com.cg.brewery.model.events.NewInventoryEvent;
 import com.cg.msscservice.repositories.BeerRepository;
-import com.cg.msscservice.web.model.BeerDto;
+import com.cg.brewery.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
