@@ -1,20 +1,20 @@
 package com.cg.springrecipeapp.controllers;
 
 import com.cg.springrecipeapp.services.RecipeService;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequiredArgsConstructor
-@NoArgsConstructor
 public class IndexController {
 
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
 
-    @RequestMapping({"","/","/index"})
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
+
+    @GetMapping({"","/","/index"})
     public String getIndexPage(Model model){
         model.addAttribute("recipes", recipeService.getRecipes());
 

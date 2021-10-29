@@ -1,13 +1,16 @@
 package com.cg.springrecipeapp.domain;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @EqualsAndHashCode(exclude = {"recipes"}) //Excluding due to bidirectional configuration, results in compiler error
-@Data
+@Getter
+@Setter
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
