@@ -36,6 +36,8 @@
                                 <tr>
                                     <td th:text="${ingredient.id}">334</td>
                                     <td th:text="${ingredient.amount} + ' ' + ${ingredient.uom.getDescription()} + ' ' + ${ingredient.description}">Tasty Goodness 3</td>
+                                    <a class="btn btn-primary" href="#" th:href="@{'/recipe/' + ${recipeId} + '/ingredients'}">Back</a>
+
                                 </tr>
                             </table>
 
