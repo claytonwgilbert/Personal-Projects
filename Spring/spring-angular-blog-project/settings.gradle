@@ -1,0 +1,4 @@
+include 'blog-admin'
+include 'blog-web'
+include 'blog-core'
+include 'blog-config'

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Blog - Results Page</title>
+</head>
+<body>
+    <p th:text="ID: " + ${blogPost.id}></p>
+    <p th:text="Title: " + ${blogPost.title}></p>
+    <p th:text="Preview: " + ${blogPost.preview}></p>
+    <p th:text="Content: " + ${blogPost.content}></p>
+    <a href="/">Return Home</a>
+</body>
+</html>

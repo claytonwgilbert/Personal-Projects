@@ -1,0 +1,19 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+def currentProfile = "ADMIN" //"$System.env.PROFILE";
+
+dependencies {
+    implementation project(":blog-core")
+
+    if(currentProfile == "WEB"){
+        implementation project(":blog-web")
+    }else if(currentProfile == "ADMIN"){
+        implementation project(":blog-admin")
+    }
+
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+}

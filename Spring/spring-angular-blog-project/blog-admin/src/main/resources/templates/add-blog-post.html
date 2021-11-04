@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Blog</title>
+    <script type="text/javascript" th:src="@{/js/ckeditor.js}"></script>
+</head>
+<body>
+    <form th:action="@{/createblogpost}" th:object="${blogPost}" method="post">
+        <p>Title:</p><input id="title" type="text" name="title" th:field="*{title}">
+        <p>Preview
+            <textarea id="preview" name="preview" th:field="*{preview}">
+                Preview...
+            </textarea>
+        </p>
+        <p>Content
+            <textarea id="editor" name="content" th:field="*{content}">
+                Content...
+            </textarea>
+        </p>
+        <p>
+            <input type="submit" value="Save" >
+        </p>
+    </form>
+
+    <script>
+        ClassicEditor.create( document.querySelector( '#preview' ));
+        ClassicEditor.create( document.querySelector( '#editor' ));
+    </script>
+</body>
+</html>
