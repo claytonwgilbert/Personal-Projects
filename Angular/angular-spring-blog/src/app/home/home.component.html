@@ -1,0 +1,264 @@
+<header class="header">
+  <div class="header-top-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="header-left-menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about-me.html">About me</a></li>
+              <li><a href="contact-me.html">Contact me</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="social-icon">
+            <a target="_blank" href="http://facebook.com"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="http://twitter.com"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a>
+            <a target="_blank" href="http://linkedin.com"><i class="fa fa-linkedin"></i></a>
+            <a target="_blank" href="http://instagram.com"><i class="fa fa-instagram"></i></a>
+            <a target="_blank" href="http://dribble.com"><i class="fa fa-dribbble"></i></a>
+            <a target="_blank" href="http://behance.com"><i class="fa fa-behance"></i></a>
+          </div>
+
+          <form action="index.html" class="search-form" method="get" role="search">
+            <input type="search" title="Search for:" name="s" value="" placeholder="Search ..." class="search-field">
+            <input type="submit" value="Search" class="search-submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="logo">
+            <h1><a href="index.html">Din<span>Lipi</span></a></h1>
+
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="col-md-9">
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="about-me.html">About</a></li>
+              <li class="dropdown"><a data-toggle="dropdown" href="#">Other pages <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="blog-left-sidebar.html">Home left sidebar</a></li>
+                  <li><a href="two-column-grid.html">Home 2 column masonry</a></li>
+                  <li><a href="three-column-grid.html">Home 3 column masonry</a></li>
+                  <li><a href="archive.html">Post Archives</a></li>
+                  <li><a href="single-post.html">Single post</a></li>
+                  <li><a href="404.html">404 not found</a></li>
+                </ul>
+              </li>
+              <li><a href="archive.html">Movie</a></li>
+              <li><a href="archive.html">Sports</a></li>
+              <li><a href="archive.html">Travel</a></li>
+              <li><a href="contact-me.html">Contact me</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div style="clear:both"></div>
+
+
+
+<section class="page-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-title">
+          <h2>Archive for <span>Videos</span></h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+          <article *ngFor="let blog of blogPosts">
+            <div class="post-content">
+              <h2><a href="index.html" routerLink="/blogPost/{{blog.id}}">{{blog.title}}</a></h2>
+              <div class="post-excerpt" [innerHTML]="blog.preview">
+              </div>
+              <div class="post-content-bottom">
+                <a href="index.html" class="readmore" routerLink="/blogPost/{{blog.id}}">Read More <i class="fa fa-long-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <div class="post-navigation">
+            <nav>
+              <ul class="pagination">
+               <li *ngIf="pagination.currentPage > 0"><a routerLink [queryParams]="{page : 1}" class="page-link">First</a></li>
+                <li *ngIf="pagination.currentPage > 0"><a routerLink [queryParams]="{page : pagination.currentPage}" class="page-link">Previous</a> </li>
+                <li *ngFor="let page of pagination.pages" [ngClass]="{active: pagination.currentPage === page}" class="page-item number-item">
+                  <a routerLink [queryParams]="{page: page + 1}" class="page-link">{{page + 1}}</a>
+                </li>
+                <li *ngIf="(pagination.currentPage + 1) < pagination.totalPages"><a routerLink [queryParams]="{page: pagination.currentPage + 2}" class="page-link">Next</a> </li>
+                <li *ngIf="(pagination.currentPage + 1) < pagination.totalPages">
+                  <a routerLink [queryParams]="{page: pagination.totalPages}" class="page-link">Last</a>
+                </li> 
+
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+      <div class="col-md-4">
+        <div class="right-sidebar">
+          <div class="widget">
+            <img class="about-photo" src="assets/img/photo.jpg" alt="">
+            <h2 class="widget-title">ABOUT ME</h2>
+            <p>Welcome to Wayne's World.<br/>
+              My name is Clayton Wayne Gilbert - Software Engineer living in the O-H-I-O.</p>
+            <p class="social-profiles">Join me: <a href="http://facebook.com" target="_blank"><i class="fa fa-facebook"></i></a> <a href="http://twitter.com" target="_blank"><i class="fa fa-twitter"></i></a> <a href="http://plus.google.com" target="_blank"><i class="fa fa-google-plus"></i></a> <a href="http://pinterest.com" target="_blank"><i class="fa fa-pinterest"></i></a></p>
+          </div>
+
+          <div class="widget">
+            <h2 class="widget-title">Categories</h2>
+            <ul>
+              <li><a href="archive.html">Entertainment</a></li>
+              <li><a href="archive.html">Sports</a></li>
+              <li><a href="archive.html">Travel</a></li>
+              <li><a href="archive.html">Lifestyle</a></li>
+              <li><a href="archive.html">Jobs</a></li>
+              <li><a href="archive.html">Movies</a></li>
+              <li><a href="archive.html">Music</a></li>
+            </ul>
+          </div>
+
+          <div class="widget">
+            <h2 class="widget-title">Recent Posts</h2>
+            <div class="single-wid-post">
+              <a href="single-post.html">
+                <img src="assets/img/post-thumb.jpg" alt="" class="alignleft">
+                <h2>The story of a colorful life</h2>
+              </a>
+              <p><i class="fa fa-clock-o"></i> 15 Oct, 2015</p>
+            </div>
+            <div class="single-wid-post">
+              <a href="single-post.html">
+                <img src="assets/img/post-thumb-2.jpg" alt="" class="alignleft">
+                <h2>Into the Backpack of a Photographer</h2>
+              </a>
+              <p><i class="fa fa-clock-o"></i> 21 Sep, 2015</p>
+            </div>
+            <div class="single-wid-post">
+              <a href="single-post.html">
+                <img src="assets/img/post-thumb-3.jpg" alt="" class="alignleft">
+                <h2>The Light of Future</h2>
+              </a>
+              <p><i class="fa fa-clock-o"></i> 19 Sep, 2015</p>
+            </div>
+            <div class="single-wid-post">
+              <a href="single-post.html">
+                <img src="assets/img/post-thumb-4.jpg" alt="" class="alignleft">
+                <h2>Some Speed Art Works, Will Amaze You</h2>
+              </a>
+              <p><i class="fa fa-clock-o"></i> 6 Jun, 2015</p>
+            </div>
+            <div class="single-wid-post">
+              <a href="single-post.html">
+                <img src="assets/img/post-thumb-5.jpg" alt="" class="alignleft">
+                <h2>Meaning of Freedom!</h2>
+              </a>
+              <p><i class="fa fa-clock-o"></i> 29 may, 2015</p>
+            </div>
+          </div>
+
+          <div class="widget">
+            <h2 class="widget-title">Tags</h2>
+            <div class="tag-cloud">
+              <a href="archive.html">Entertainment</a>
+              <a href="archive.html">Sports</a>
+              <a href="archive.html">Travel</a>
+              <a href="archive.html">Lifestyle</a>
+              <a href="archive.html">Movies</a>
+              <a href="archive.html">Music</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <div class="footer-widget">
+          <h2 class="footer-wid-title">Popular Posts</h2>
+          <div class="single-wid-post">
+            <a href="single-post.html">
+              <img src="assets/img/post-thumb-3.jpg" alt="" class="alignleft">
+              <h2>The Light of Future</h2>
+            </a>
+            <p><i class="fa fa-clock-o"></i> 19 Sep, 2015</p>
+          </div>
+          <div class="single-wid-post">
+            <a href="single-post.html">
+              <img src="assets/img/post-thumb-6.jpg" alt="" class="alignleft">
+              <h2>Lives after the Sunset</h2>
+            </a>
+            <p><i class="fa fa-clock-o"></i> 15 Oct, 2015</p>
+          </div>
+          <div class="single-wid-post">
+            <a href="single-post.html">
+              <img src="assets/img/post-thumb-7.jpg" alt="" class="alignleft">
+              <h2>Top 10 Manupulated Photos of All time</h2>
+            </a>
+            <p><i class="fa fa-clock-o"></i> 15 Oct, 2015</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <div class="footer-widget">
+          <h2 class="footer-wid-title">Latest Tweets</h2>
+          <div id="tweet"></div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <div class="footer-widget">
+          <h2 class="footer-wid-title">Instagram</h2>
+          <div id="instafeed"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        <div class="footer-menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about-me.html">About</a></li>
+            <li><a href="archive.html">Archives</a></li>
+            <li><a href="contact-me.html">Contact me</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-copyright">
+          <p>&copy; 2015 - All Rights Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

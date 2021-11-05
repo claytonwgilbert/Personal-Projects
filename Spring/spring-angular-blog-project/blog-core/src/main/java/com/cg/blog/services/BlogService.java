@@ -19,15 +19,14 @@ public class BlogService {
         this.blogRepository = blogRepository;
     }
 
+
     public Page<BlogPost> findAll(Pageable pageable){
         return blogRepository.findAll(pageable);
     }
 
-
     public Optional<BlogPost> findById(Long id){
         return blogRepository.findById(id);
     }
-
 
     public HashMap<String, Object> createPaginationModel(Page<BlogPost> portion) {
         HashMap<String, Object> results = new HashMap<>();

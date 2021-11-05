@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+/*@Configuration
 @ComponentScan
 public class Config {
 
@@ -15,4 +15,4 @@ public class Config {
         return new BlogService(blogRepository);
     }
 
-}
+}*/

@@ -25,8 +25,10 @@ public class BlogAdminController {
     }
 
     @PostMapping("/createblogpost")
-    public String addBlogPost(@ModelAttribute("blogPost") BlogPost blogPost){
-        blogRepository.save(blogPost);
+    public String addBlogPost(@ModelAttribute("blogPost") BlogPost blogPost, Model model){
+        BlogPost savedPost = blogRepository.save(blogPost);
+
+        model.addAttribute("savedPost", savedPost);
 
         return "save-confirmation-page";
     }
