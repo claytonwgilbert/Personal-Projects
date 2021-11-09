@@ -2,6 +2,7 @@ package com.cg.springrecipeapp.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 
 @Entity

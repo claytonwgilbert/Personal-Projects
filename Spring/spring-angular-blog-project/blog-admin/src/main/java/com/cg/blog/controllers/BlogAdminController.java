@@ -18,14 +18,14 @@ public class BlogAdminController {
     }
 
     @GetMapping("/")
-    public String addBlogPost(Model model){
+    public String addBlogPost(Model model) {
         model.addAttribute("blogPost", new BlogPost());
 
         return "add-blog-post";
     }
 
     @PostMapping("/createblogpost")
-    public String addBlogPost(@ModelAttribute("blogPost") BlogPost blogPost, Model model){
+    public String addBlogPost(@ModelAttribute("blogPost") BlogPost blogPost, Model model) {
         BlogPost savedPost = blogRepository.save(blogPost);
 
         model.addAttribute("savedPost", savedPost);

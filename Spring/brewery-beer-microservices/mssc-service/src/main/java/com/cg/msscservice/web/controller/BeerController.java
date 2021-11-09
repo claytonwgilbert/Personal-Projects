@@ -23,22 +23,22 @@ public class BeerController {
 
     private final BeerService beerService;
 
-    @GetMapping(produces = { "application/json" }, path = "beer")
-    public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value="pageNumber", required = false) Integer pageNumber,
-                                                   @RequestParam(value="pageSize", required = false) Integer pageSize,
-                                                   @RequestParam(value="beerName", required = false) String beerName,
-                                                   @RequestParam(value="beerStyle", required = false) BeerStyleEnum beerStyle,
-                                                   @RequestParam(value="showInventoryOnHand", required = false) Boolean showInventoryOnHand){
+    @GetMapping(produces = {"application/json"}, path = "beer")
+    public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+                                                   @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                                                   @RequestParam(value = "beerName", required = false) String beerName,
+                                                   @RequestParam(value = "beerStyle", required = false) BeerStyleEnum beerStyle,
+                                                   @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand) {
 
-        if(showInventoryOnHand == null){
+        if (showInventoryOnHand == null) {
             showInventoryOnHand = false;
         }
 
-        if(pageNumber == null || pageNumber < 0){
+        if (pageNumber == null || pageNumber < 0) {
             pageNumber = DEFAULT_PAGE_NUMBER;
         }
 
-        if(pageSize == null || pageSize < 1){
+        if (pageSize == null || pageSize < 1) {
             pageSize = DEFAULT_PAGE_SIZE;
         }
 
@@ -49,32 +49,31 @@ public class BeerController {
 
     @GetMapping({"beer/{beerId}"})
     public ResponseEntity<BeerDto> getBeerById(@PathVariable UUID beerId,
-                                               @RequestParam(value="showInventoryOnHand", required = false) Boolean showInventoryOnHand){
+                                               @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand) {
 
-        if(showInventoryOnHand == null){
+        if (showInventoryOnHand == null) {
             showInventoryOnHand = false;
         }
-
 
 
         return new ResponseEntity<>(beerService.getById(beerId, showInventoryOnHand), HttpStatus.OK);
     }
 
     @GetMapping({"beerUpc/{upc}"})
-    public ResponseEntity<BeerDto> getBeerByUpc(@PathVariable String upc){
+    public ResponseEntity<BeerDto> getBeerByUpc(@PathVariable String upc) {
         return new ResponseEntity<>(beerService.getByUpc(upc), HttpStatus.OK);
     }
 
     @PostMapping(path = "beer")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity saveNewBeer(@Validated @RequestBody BeerDto beer){
+    public ResponseEntity saveNewBeer(@Validated @RequestBody BeerDto beer) {
         return new ResponseEntity<>(beerService.saveNewBeer(beer), HttpStatus.CREATED);
     }
 
 
     @PutMapping({"beer/{beerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity updateBeer(@PathVariable UUID beerId, @Validated @RequestBody BeerDto beer){
+    public ResponseEntity updateBeer(@PathVariable UUID beerId, @Validated @RequestBody BeerDto beer) {
         return new ResponseEntity<>(beerService.updateBeer(beerId, beer), HttpStatus.NO_CONTENT);
     }
 }

@@ -14,7 +14,7 @@ public class JmsConfig {
 
     //Allows Spring to take a JMS messsage being sent and transcode it to a JSON message for delivery to receiver.
     @Bean
-    public MessageConverter messageConverter(){
+    public MessageConverter messageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setTypeIdPropertyName("_type");

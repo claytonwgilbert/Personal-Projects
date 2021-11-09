@@ -29,36 +29,36 @@ public class BreweryClient {
         this.apihost = apihost;
     }
 
-    public BeerDto getBeerById(UUID beerId){
+    public BeerDto getBeerById(UUID beerId) {
         return restTemplate.getForObject(apihost + BEER_PATH_V1 + beerId.toString(), BeerDto.class);
     }
 
-    public URI saveNewBeer(BeerDto beerDto){
+    public URI saveNewBeer(BeerDto beerDto) {
         return restTemplate.postForLocation(apihost + BEER_PATH_V1, beerDto);
     }
 
-    public void updateBeer(UUID beerId, BeerDto beerDto){
+    public void updateBeer(UUID beerId, BeerDto beerDto) {
         restTemplate.put(apihost + BEER_PATH_V1 + "/" + beerId.toString(), beerDto);
     }
 
-    public void deleteBeer(UUID beerId){
+    public void deleteBeer(UUID beerId) {
 
         restTemplate.delete(apihost + BEER_PATH_V1 + beerId);
     }
 
-    public CustomerDto getCustomerById(UUID customerId){
+    public CustomerDto getCustomerById(UUID customerId) {
         return restTemplate.getForObject(apihost + CUSTOMER_PATH_V1 + customerId.toString(), CustomerDto.class);
     }
 
-    public URI saveNewCustomer(CustomerDto customerDto){
+    public URI saveNewCustomer(CustomerDto customerDto) {
         return restTemplate.postForLocation(apihost + CUSTOMER_PATH_V1, customerDto);
     }
 
-    public void updateCustomer(UUID customerId, CustomerDto customerDto){
+    public void updateCustomer(UUID customerId, CustomerDto customerDto) {
         restTemplate.put(apihost + CUSTOMER_PATH_V1 + "/" + customerId.toString(), customerDto);
     }
 
-    public void deleteCustomer(UUID customerId){
+    public void deleteCustomer(UUID customerId) {
         restTemplate.delete(apihost + CUSTOMER_PATH_V1 + customerId);
     }
 

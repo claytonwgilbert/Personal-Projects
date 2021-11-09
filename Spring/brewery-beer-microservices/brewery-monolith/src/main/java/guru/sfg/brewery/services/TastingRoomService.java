@@ -38,11 +38,11 @@ public class TastingRoomService {
 
     @Transactional
     @Scheduled(fixedRate = 2000) //run every 2 seconds
-    public void placeTastingRoomOrder(){
+    public void placeTastingRoomOrder() {
 
         List<Customer> customerList = customerRepository.findAllByCustomerNameLike(DefaultBreweryLoader.TASTING_ROOM);
 
-        if (customerList.size() == 1){ //should be just one
+        if (customerList.size() == 1) { //should be just one
             doPlaceOrder(customerList.get(0));
         } else {
             log.error("Too many or too few tasting room customers found");
@@ -63,7 +63,7 @@ public class TastingRoomService {
         BeerOrderDto beerOrder = BeerOrderDto.builder()
                 .customerId(customer.getId())
                 .customerRef(UUID.randomUUID().toString())
-               // .orderStatusCallbackUrl("http://localhost:8080/beerorder") //todo update
+                // .orderStatusCallbackUrl("http://localhost:8080/beerorder") //todo update
                 .beerOrderLines(beerOrderLineSet)
                 .build();
 
@@ -75,6 +75,6 @@ public class TastingRoomService {
     private Beer getRandomBeer() {
         List<Beer> beers = beerRepository.findAll();
 
-        return beers.get(new Random().nextInt(beers.size() -0));
+        return beers.get(new Random().nextInt(beers.size() - 0));
     }
 }

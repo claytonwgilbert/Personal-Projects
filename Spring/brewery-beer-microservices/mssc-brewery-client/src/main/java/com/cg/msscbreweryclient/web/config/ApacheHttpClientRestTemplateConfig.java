@@ -31,7 +31,7 @@ public class ApacheHttpClientRestTemplateConfig implements RestTemplateCustomize
         this.socketTimeoutTime = socketTimeoutTime;
     }
 
-    public ClientHttpRequestFactory clientHttpRequestFactory(){
+    public ClientHttpRequestFactory clientHttpRequestFactory() {
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setMaxTotal(maxTotalConnections);
         connectionManager.setDefaultMaxPerRoute(maxDefaultMaxPerRoute);

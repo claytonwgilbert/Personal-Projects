@@ -67,7 +67,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
     }
 
     private void loadBreweryData() {
-        if (breweryRepository.count() == 0){
+        if (breweryRepository.count() == 0) {
             breweryRepository.save(Brewery
                     .builder()
                     .breweryName("Cage Brewing")

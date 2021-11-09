@@ -11,7 +11,7 @@
         <version>1.0.4</version>
     </parent>
 
-<!--    <groupId>sfg.brewery</groupId>-->
+    <!--    <groupId>sfg.brewery</groupId>-->
     <artifactId>brewery-monolith</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -35,7 +35,7 @@
             <organization>Spring Framework Guru</organization>
         </developer>
     </developers>
-    
+
     <properties>
         <!-- Web dependencies -->
         <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>

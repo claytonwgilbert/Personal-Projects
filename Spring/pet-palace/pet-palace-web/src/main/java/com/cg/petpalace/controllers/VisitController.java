@@ -32,7 +32,7 @@ public class VisitController {
         //Handles Date conversions for requests coming through the controller before it is binded to the entity.
         dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
             @Override
-            public void setAsText(String text) throws IllegalArgumentException{
+            public void setAsText(String text) throws IllegalArgumentException {
                 setValue(LocalDate.parse(text));
             }
         });
@@ -58,8 +58,7 @@ public class VisitController {
     public String processNewVisitForm(@PathVariable("ownerId") Long ownerId, Visit visit, BindingResult result) {
         if (result.hasErrors()) {
             return "pets/createOrUpdateVisitForm";
-        }
-        else {
+        } else {
             visitService.save(visit);
             return "redirect:/owners/" + ownerId;
         }

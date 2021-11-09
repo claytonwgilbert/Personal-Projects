@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.jms.artemis.ArtemisAutoConfigurati
 @SpringBootApplication
 public class MsscServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MsscServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MsscServiceApplication.class, args);
+    }
 
 }

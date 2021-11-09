@@ -21,40 +21,40 @@ public class BeerLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if(beerRepo.count() == 0) {
+        if (beerRepo.count() == 0) {
             loadBeerObjects();
         }
     }
 
     private void loadBeerObjects() {
-        if(beerRepo.count() == 0){
+        if (beerRepo.count() == 0) {
 
             beerRepo.save(Beer.builder()
-                              .beerName("Mango Bobs")
-                              .beerStyle("IPA")
-                              .quantityToBrew(200)
-                              .minOnHand(12)
-                              .upc(BEER_1_UPC)
-                              .price(new BigDecimal("12.95"))
-                              .build());
+                    .beerName("Mango Bobs")
+                    .beerStyle("IPA")
+                    .quantityToBrew(200)
+                    .minOnHand(12)
+                    .upc(BEER_1_UPC)
+                    .price(new BigDecimal("12.95"))
+                    .build());
 
             beerRepo.save(Beer.builder()
-                              .beerName("Galaxy Cat")
-                              .beerStyle("PALE_ALE")
-                              .quantityToBrew(200)
-                              .minOnHand(12)
-                              .upc(BEER_2_UPC)
-                              .price(new BigDecimal("12.95"))
-                              .build());
+                    .beerName("Galaxy Cat")
+                    .beerStyle("PALE_ALE")
+                    .quantityToBrew(200)
+                    .minOnHand(12)
+                    .upc(BEER_2_UPC)
+                    .price(new BigDecimal("12.95"))
+                    .build());
 
             beerRepo.save(Beer.builder()
-                              .beerName("Pinball Porter")
-                              .beerStyle("PORTER")
-                              .quantityToBrew(200)
-                              .minOnHand(12)
-                              .upc(BEER_3_UPC)
-                              .price(new BigDecimal("12.95"))
-                              .build());
+                    .beerName("Pinball Porter")
+                    .beerStyle("PORTER")
+                    .quantityToBrew(200)
+                    .minOnHand(12)
+                    .upc(BEER_3_UPC)
+                    .price(new BigDecimal("12.95"))
+                    .build());
         }
 
         System.out.println("Loaded beers:" + beerRepo.count());

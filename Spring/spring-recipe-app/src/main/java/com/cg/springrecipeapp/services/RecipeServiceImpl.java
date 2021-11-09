@@ -8,6 +8,7 @@ import com.cg.springrecipeapp.repositories.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Set<Recipe> getRecipes() {
         Set<Recipe> recipeSet = new HashSet<>();
         recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
-        return  recipeSet;
+        return recipeSet;
     }
 
     @Override

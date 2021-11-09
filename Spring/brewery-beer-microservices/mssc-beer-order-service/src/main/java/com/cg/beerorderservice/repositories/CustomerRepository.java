@@ -17,7 +17,6 @@
 package com.cg.beerorderservice.repositories;
 
 
-
 import com.cg.beerorderservice.domain.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 

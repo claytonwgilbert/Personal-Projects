@@ -20,11 +20,11 @@ public class BlogService {
     }
 
 
-    public Page<BlogPost> findAll(Pageable pageable){
+    public Page<BlogPost> findAll(Pageable pageable) {
         return blogRepository.findAll(pageable);
     }
 
-    public Optional<BlogPost> findById(Long id){
+    public Optional<BlogPost> findById(Long id) {
         return blogRepository.findById(id);
     }
 
@@ -38,15 +38,15 @@ public class BlogService {
         return results;
     }
 
-    private ArrayList<Integer> getPages(int currentPage, int numberOfPages){
+    private ArrayList<Integer> getPages(int currentPage, int numberOfPages) {
         ArrayList<Integer> pages = new ArrayList<>();
 
-        if(currentPage > 0){
+        if (currentPage > 0) {
             pages.add(currentPage - 1);
         }
         pages.add(currentPage);
 
-        if(currentPage < numberOfPages){
+        if (currentPage < numberOfPages) {
             pages.add(currentPage + 1);
         }
 

@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -39,12 +40,13 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
 
         ResponseEntity<List<BeerInventoryDto>> responseEntity = restTemplate
                 .exchange(beerInventoryServiceHost + INVENTORY_PATH, HttpMethod.GET, null,
-                        new ParameterizedTypeReference<List<BeerInventoryDto>>(){}, (Object) beerId);
+                        new ParameterizedTypeReference<List<BeerInventoryDto>>() {
+                        }, (Object) beerId);
 
         Integer onHand = Objects.requireNonNull(responseEntity.getBody())
-                                .stream()
-                                .mapToInt(BeerInventoryDto::getQuantityOnHand)
-                                .sum();
+                .stream()
+                .mapToInt(BeerInventoryDto::getQuantityOnHand)
+                .sum();
         return onHand;
     }
 }

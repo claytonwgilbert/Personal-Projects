@@ -18,15 +18,15 @@ public class BeerOrderValidationListener {
     private final JmsTemplate jmsTemplate;
 
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE)
-    public void listen(Message message){
+    public void listen(Message message) {
 
         ValidateOrderRequest request = (ValidateOrderRequest) message.getPayload();
 
         jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE,
                 ValidateOrderResult.builder()
-                .isValid(true)
-                .orderId(request.getBeerOrder().getId())
-                .build());
+                        .isValid(true)
+                        .orderId(request.getBeerOrder().getId())
+                        .build());
 
     }
 }

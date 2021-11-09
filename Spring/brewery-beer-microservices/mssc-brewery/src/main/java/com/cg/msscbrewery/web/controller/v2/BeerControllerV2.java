@@ -28,12 +28,12 @@ public class BeerControllerV2 {
     }
 
     @GetMapping({"/{beerId}"})
-    public ResponseEntity<BeerDtoV2> getBeer(@PathVariable UUID beerId){
+    public ResponseEntity<BeerDtoV2> getBeer(@PathVariable UUID beerId) {
         return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@Valid @RequestBody BeerDtoV2 beer){
+    public ResponseEntity handlePost(@Valid @RequestBody BeerDtoV2 beer) {
         BeerDtoV2 savedBeer = beerService.saveNewBeer(beer);
 
         HttpHeaders headers = new HttpHeaders();
@@ -44,13 +44,13 @@ public class BeerControllerV2 {
 
     @PutMapping({"/{beerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void handleUpdate(@PathVariable UUID beerId, @Valid @RequestBody BeerDtoV2 beer){
+    public void handleUpdate(@PathVariable UUID beerId, @Valid @RequestBody BeerDtoV2 beer) {
         beerService.updateBeer(beerId, beer);
     }
 
     @DeleteMapping({"/{beerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void handleDelete(@PathVariable UUID beerId){
+    public void handleDelete(@PathVariable UUID beerId) {
         beerService.deleteBeer(beerId);
     }
 

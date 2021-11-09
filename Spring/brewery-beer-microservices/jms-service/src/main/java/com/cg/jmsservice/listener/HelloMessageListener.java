@@ -23,14 +23,14 @@ public class HelloMessageListener {
 
     @JmsListener(destination = JmsConfig.MY_QUEUE)
     public void listen(@Payload HelloWorldMessage helloWorldMessage,
-                       @Headers MessageHeaders headers, Message message){
+                       @Headers MessageHeaders headers, Message message) {
         System.out.println("I got a message!");
         System.out.println(helloWorldMessage);
     }
 
     @JmsListener(destination = JmsConfig.SEND_AND_RECEIVE_QUEUE)
     public void listenForHello(@Payload HelloWorldMessage helloWorldMessage,
-                       @Headers MessageHeaders headers, Message message) throws JMSException {
+                               @Headers MessageHeaders headers, Message message) throws JMSException {
         HelloWorldMessage payloadMsg = HelloWorldMessage
                 .builder()
                 .id(UUID.randomUUID())

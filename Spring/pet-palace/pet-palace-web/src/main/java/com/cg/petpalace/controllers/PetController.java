@@ -31,22 +31,22 @@ public class PetController {
     }
 
     @InitBinder("owner")
-    public void initOwnerBinder(WebDataBinder dataBinder){
+    public void initOwnerBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
     }
 
     @ModelAttribute("owner")
-    public Owner findOwner(@PathVariable("ownerId") Long ownerId){
+    public Owner findOwner(@PathVariable("ownerId") Long ownerId) {
         return ownerService.findById(ownerId);
     }
 
     @ModelAttribute("types")
-    public Collection<PetType> populatePetTypes(){
+    public Collection<PetType> populatePetTypes() {
         return petTypeService.findAll();
     }
 
     @GetMapping("/pets/new")
-    public String displayCreatePetForm(@Valid Owner owner, Model model){
+    public String displayCreatePetForm(@Valid Owner owner, Model model) {
         Pet pet = new Pet();
         owner.getPets().add(pet);
         pet.setOwner(owner);
@@ -56,12 +56,12 @@ public class PetController {
     }
 
     @PostMapping("/pets/new")
-    public String processCreatePetForm(Owner owner, Pet pet, BindingResult results, Model model){
-        if(StringUtils.hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null){
+    public String processCreatePetForm(Owner owner, Pet pet, BindingResult results, Model model) {
+        if (StringUtils.hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null) {
             results.rejectValue("name", "duplicate", "already exists");
         }
         owner.getPets().add(pet);
-        if(results.hasErrors()){
+        if (results.hasErrors()) {
             return "pets/createOrUpdatePetForm";
         }
         petService.save(pet);
@@ -70,15 +70,15 @@ public class PetController {
     }
 
     @GetMapping("/pets/{petId}/edit")
-    public String displayUpdatePetForm(@PathVariable("petId") Long id, Model model){
-        model.addAttribute("pet",petService.findById(id));
+    public String displayUpdatePetForm(@PathVariable("petId") Long id, Model model) {
+        model.addAttribute("pet", petService.findById(id));
 
         return "pets/createOrUpdatePetForm";
     }
 
     @PostMapping("/pets/{petId}/edit")
-    public String processUpdatePetForm(@PathVariable("petId") Long petId, Pet pet, Owner owner, BindingResult results, Model model){
-        if(results.hasErrors()){
+    public String processUpdatePetForm(@PathVariable("petId") Long petId, Pet pet, Owner owner, BindingResult results, Model model) {
+        if (results.hasErrors()) {
             pet.setOwner(owner);
             model.addAttribute("pet", pet);
             return "pets/createOrUpdatePetForm";

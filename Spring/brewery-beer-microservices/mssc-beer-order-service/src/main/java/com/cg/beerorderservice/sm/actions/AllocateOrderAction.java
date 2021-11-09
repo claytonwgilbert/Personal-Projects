@@ -14,6 +14,7 @@ import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.action.Action;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,11 +33,11 @@ public class AllocateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
         Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(UUID.fromString(beerOrderId));
 
         beerOrderOptional.ifPresentOrElse(beerOrder -> {
-                    jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_QUEUE,
-                            AllocateOrderRequest.builder()
+            jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_QUEUE,
+                    AllocateOrderRequest.builder()
                             .beerOrderDto(beerOrderMapper.beerOrderToDto(beerOrder))
                             .build());
-                    log.debug("Sent Allocation Request for order id: " + beerOrderId);
-                }, () -> log.error("Beer Order Not Found!"));
+            log.debug("Sent Allocation Request for order id: " + beerOrderId);
+        }, () -> log.error("Beer Order Not Found!"));
     }
 }

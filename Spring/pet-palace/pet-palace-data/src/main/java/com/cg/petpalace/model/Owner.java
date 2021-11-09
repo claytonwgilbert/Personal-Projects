@@ -17,12 +17,12 @@ public class Owner extends Person {
     @Builder
     public Owner(Long id, String firstName, String lastName,
                  String address, String city, String phone,
-                 Set<Pet> pets){
+                 Set<Pet> pets) {
         super(id, firstName, lastName);
         this.address = address;
         this.city = city;
         this.phone = phone;
-        if(pets != null){
+        if (pets != null) {
             this.pets = pets;
         }
     }

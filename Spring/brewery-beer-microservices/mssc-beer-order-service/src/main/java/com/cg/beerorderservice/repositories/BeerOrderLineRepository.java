@@ -18,7 +18,6 @@
 package com.cg.beerorderservice.repositories;
 
 
-
 import com.cg.beerorderservice.domain.BeerOrderLine;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

@@ -25,14 +25,14 @@ public class BlogController {
     }
 
     @GetMapping("/blog/posts")
-    public HashMap<String, Object> getBlogPosts(@RequestParam("page") Long page) throws Exception{
+    public HashMap<String, Object> getBlogPosts(@RequestParam("page") Long page) throws Exception {
         Pageable pageable = PageRequest.of(page != null ? (page.intValue() - 1) : 0, 1, Sort.by("id").descending());
 
         Page<BlogPost> portion = blogService.findAll(pageable);
 
         List<BlogPost> blogPosts = portion.getContent();
 
-        if(pageable.getPageNumber() < 0 || pageable.getPageNumber() > portion.getTotalPages()){
+        if (pageable.getPageNumber() < 0 || pageable.getPageNumber() > portion.getTotalPages()) {
             throw new Exception("Out of bounds results when retrieving blog posts");
         }
 

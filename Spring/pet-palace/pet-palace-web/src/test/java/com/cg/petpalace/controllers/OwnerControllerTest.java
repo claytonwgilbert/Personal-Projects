@@ -1,4 +1,5 @@
 package com.cg.petpalace.controllers;
+
 import com.cg.petpalace.model.Owner;
 import com.cg.petpalace.services.OwnerService;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,9 +12,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -40,8 +43,8 @@ class OwnerControllerTest {
         owners.add(Owner.builder().id(2l).build());
 
         mockMvc = MockMvcBuilders
-                  .standaloneSetup(controller)
-                  .build();
+                .standaloneSetup(controller)
+                .build();
     }
 
     @Test
@@ -78,8 +81,8 @@ class OwnerControllerTest {
     @Test
     void processFindFormMultipleOwnersFound() throws Exception {
         when(ownerService.findAllByLastNameLike(anyString()))
-        .thenReturn(Arrays.asList(Owner.builder().id(1l).build(),
-                    Owner.builder().id(2l).build()));
+                .thenReturn(Arrays.asList(Owner.builder().id(1l).build(),
+                        Owner.builder().id(2l).build()));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/owners"))
                 .andExpect(status().isOk())

@@ -39,14 +39,14 @@ public class ImageController {
     }
 
     @GetMapping("recipe/{id}/image")
-    public String showUploadForm(@PathVariable String id, Model model){
+    public String showUploadForm(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
 
         return "recipe/imageuploadform";
     }
 
     @PostMapping("recipe/{id}/image")
-    public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file){
+    public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file) {
 
         imageService.saveImageFile(Long.valueOf(id), file);
 
@@ -61,7 +61,7 @@ public class ImageController {
             byte[] byteArray = new byte[recipeCommand.getImage().length];
             int i = 0;
 
-            for (Byte wrappedByte : recipeCommand.getImage()){
+            for (Byte wrappedByte : recipeCommand.getImage()) {
                 byteArray[i++] = wrappedByte; //auto unboxing
             }
 
@@ -71,9 +71,9 @@ public class ImageController {
         }
 
         URL defaultImage = new URL("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png");
-        BufferedImage imageDefault= ImageIO.read(defaultImage);
+        BufferedImage imageDefault = ImageIO.read(defaultImage);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(imageDefault, "jpg", baos );
+        ImageIO.write(imageDefault, "jpg", baos);
 
         byte[] defaultImageData = baos.toByteArray();
         response.setContentType("image/jpeg");

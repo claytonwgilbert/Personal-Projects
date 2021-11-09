@@ -24,23 +24,23 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe/{id}/show")
-    public String showRecipeById(@PathVariable String id, Model model){
+    public String showRecipeById(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findById(id));
 
         return "recipe/show";
     }
 
     @GetMapping("/recipe/new")
-    public String newRecipe(Model model){
+    public String newRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
 
         return "recipe/recipeform";
     }
 
     @PostMapping("recipe")
-    public String saveOrUpdateRecipe(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult result){
+    public String saveOrUpdateRecipe(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult result) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             result.getAllErrors().forEach(error -> {
                 log.debug(error.toString());
             });
@@ -54,14 +54,14 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe/{id}/update")
-    public String showUpdateRecipeForm(@PathVariable String id, Model model){
+    public String showUpdateRecipeForm(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(id));
 
         return "recipe/recipeform";
     }
 
     @GetMapping("recipe/{id}/delete")
-    public String deleteById(@PathVariable String id){
+    public String deleteById(@PathVariable String id) {
         recipeService.deleteById(id);
 
         return "redirect:/";
@@ -69,7 +69,7 @@ public class RecipeController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFound(Exception exception){
+    public ModelAndView handleNotFound(Exception exception) {
 
         log.error("Handling not found exception");
         log.error(exception.getMessage());

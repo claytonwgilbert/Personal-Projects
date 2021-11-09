@@ -10,5 +10,6 @@ import org.mapstruct.Mapper;
 @Mapper(uses = DateMapper.class)
 public interface BeerMapper {
     BeerDto beerToBeerDto(Beer beer);
+
     Beer beerBetoToBeer(BeerDto beer);
 }

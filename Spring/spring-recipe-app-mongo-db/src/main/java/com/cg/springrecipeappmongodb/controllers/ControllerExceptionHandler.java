@@ -13,7 +13,7 @@ public class ControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormatException(Exception exception){
+    public ModelAndView handleNumberFormatException(Exception exception) {
         log.error("Handling number format exception");
         log.error(exception.getMessage());
 

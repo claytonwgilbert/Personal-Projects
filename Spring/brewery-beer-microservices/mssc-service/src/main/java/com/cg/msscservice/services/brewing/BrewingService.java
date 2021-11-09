@@ -24,7 +24,7 @@ public class BrewingService {
     private final BeerMapper mapper;
 
     @Scheduled(fixedRate = 5000) // - Every 5 seconds
-    public void checkForLowInventory(){
+    public void checkForLowInventory() {
         List<Beer> beers = beerRepository.findAll();
 
         beers.forEach(beer -> {
@@ -33,7 +33,7 @@ public class BrewingService {
             log.debug("Inventory:" + invQOH);
 
             // - If condition is true, need more inventory, so we create new brew beer event and send the request
-            if(beer.getMinOnHand() >= invQOH){
+            if (beer.getMinOnHand() >= invQOH) {
                 jmsTemplate.convertAndSend(JmsConfig.BREWING_REQUEST_QUEUE, new BrewBeerEvent(mapper.beerToBeerDto(beer)));
             }
         });

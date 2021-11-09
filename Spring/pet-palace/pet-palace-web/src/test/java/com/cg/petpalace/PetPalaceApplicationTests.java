@@ -9,9 +9,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest
 class PetPalaceApplicationTests {
 
-	@Test
-	void contextLoads() {
+    @Test
+    void contextLoads() {
 
-	}
+    }
 
 }

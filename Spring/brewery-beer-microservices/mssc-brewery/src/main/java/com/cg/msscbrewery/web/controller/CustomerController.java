@@ -25,12 +25,12 @@ public class CustomerController {
     }
 
     @GetMapping({"/{customerId}"})
-    ResponseEntity<CustomerDto> getCustomer(@PathVariable UUID customerId){
+    ResponseEntity<CustomerDto> getCustomer(@PathVariable UUID customerId) {
         return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@Valid @RequestBody CustomerDto customer){
+    public ResponseEntity handlePost(@Valid @RequestBody CustomerDto customer) {
         CustomerDto savedCustomer = customerService.saveNewCustomer(customer);
 
         HttpHeaders headers = new HttpHeaders();
@@ -41,13 +41,13 @@ public class CustomerController {
 
     @PutMapping({"/{customerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void handleUpdate(@PathVariable UUID customerId, @Valid @RequestBody CustomerDto customer){
+    public void handleUpdate(@PathVariable UUID customerId, @Valid @RequestBody CustomerDto customer) {
         customerService.updateCustomer(customerId, customer);
     }
 
     @DeleteMapping({"/{customerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void handleDelete(@PathVariable UUID customerId){
+    public void handleDelete(@PathVariable UUID customerId) {
         customerService.deleteCustomer(customerId);
     }
 

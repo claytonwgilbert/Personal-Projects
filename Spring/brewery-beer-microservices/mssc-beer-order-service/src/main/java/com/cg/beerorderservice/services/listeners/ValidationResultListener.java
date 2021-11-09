@@ -20,7 +20,7 @@ public class ValidationResultListener {
 
     // - Here we listen to the queue message sent back from the beer service after validating order
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE)
-    public void listen(ValidateOrderResult validateOrderResult){
+    public void listen(ValidateOrderResult validateOrderResult) {
         // - Get the orderId from validation result object
         final UUID beerOrderId = validateOrderResult.getOrderId();
 

@@ -2,28 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
 <head>
     <meta charset="UTF-8">
-        <title>Pet Palace Owners Landing Page</title>
+    <title>Pet Palace Owners Landing Page</title>
 </head>
 <body>
 
-    <h2>Owners</h2>
+<h2>Owners</h2>
 
-    <table id="owners" class="table table-striped">
-        <thead>
-            <tr>
-                <th style="width: 120px;">ID</th>
-                <th style="width: 120px;">First Name</th>
-                <th style="width: 120px;">Last Name</th>
+<table id="owners" class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width: 120px;">ID</th>
+        <th style="width: 120px;">First Name</th>
+        <th style="width: 120px;">Last Name</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="owner : ${owners}">
-                <td th:text="${owner?.getId()}">1</td>
-                <td th:text="${owner?.getFirstName()}">Lorem</td>
-                <td th:text="${owner?.getLastName()}">Ipsum</td>
-            </tr>
-        </tbody>
-    </table>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="owner : ${owners}">
+        <td th:text="${owner?.getId()}">1</td>
+        <td th:text="${owner?.getFirstName()}">Lorem</td>
+        <td th:text="${owner?.getLastName()}">Ipsum</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

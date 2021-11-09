@@ -7,9 +7,9 @@ def currentProfile = "WEB" //"$System.env.PROFILE";
 dependencies {
     implementation project(":blog-core")
 
-    if(currentProfile == "WEB"){
+    if (currentProfile == "WEB") {
         implementation project(":blog-web")
-    }else if(currentProfile == "ADMIN"){
+    } else if (currentProfile == "ADMIN") {
         implementation project(":blog-admin")
     }
 

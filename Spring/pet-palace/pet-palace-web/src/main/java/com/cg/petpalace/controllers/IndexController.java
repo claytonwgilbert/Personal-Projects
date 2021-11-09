@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-    @RequestMapping({"","/","/index","/index.html"})
-    public String landingPage(){
+    @RequestMapping({"", "/", "/index", "/index.html"})
+    public String landingPage() {
         return "index";
     }
 
     @RequestMapping("/oups")
-    public String oupsHandler(){
+    public String oupsHandler() {
         return "notfinished";
     }
 

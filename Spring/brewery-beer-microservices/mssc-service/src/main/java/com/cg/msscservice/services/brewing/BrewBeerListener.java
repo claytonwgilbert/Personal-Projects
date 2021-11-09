@@ -24,8 +24,9 @@ public class BrewBeerListener { // - Listener that brews the beer before sending
 
     // - What were listening for - sent over from BrewingService
     @JmsListener(destination = JmsConfig.BREWING_REQUEST_QUEUE)
-    @Transactional // - Since working with an object from the database, annotation prevents out of hibernate session errors
-    public void listen(BrewBeerEvent event){
+    @Transactional
+    // - Since working with an object from the database, annotation prevents out of hibernate session errors
+    public void listen(BrewBeerEvent event) {
         BeerDto beerDto = event.getBeerDto();
         // - Getting beer from repo since beerDto does not have the quantityToBrew property exposed, which is the amount of
         //beer we want to brew

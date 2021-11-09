@@ -3,13 +3,16 @@ package com.cg.brewery.model.events;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -30,11 +33,11 @@ public class BeerDto implements Serializable {
     private Integer version;
 
     @Null
-    @JsonFormat(pattern = "yyyy-mm-dd'T'HH:mm:ss2", shape=JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-mm-dd'T'HH:mm:ss2", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime createdDate;
 
     @Null
-    @JsonFormat(pattern = "yyyy-mm-dd'T'HH:mm:ss2", shape=JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-mm-dd'T'HH:mm:ss2", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastModifiedDate;
 
     @NotBlank
@@ -48,7 +51,7 @@ public class BeerDto implements Serializable {
 
     @Positive
     @NotNull
-    @JsonFormat(shape=JsonFormat.Shape.STRING)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
     private Integer quantityOnHand;
 }

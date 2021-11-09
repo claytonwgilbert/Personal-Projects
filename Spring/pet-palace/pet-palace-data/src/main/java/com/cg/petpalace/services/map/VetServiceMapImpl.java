@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-@Profile({"default","map"})
+@Profile({"default", "map"})
 public class VetServiceMapImpl extends AbstractBaseMap<Vet, Long> implements VetService {
 
     SpecialtyService specialtyService;
@@ -36,9 +36,9 @@ public class VetServiceMapImpl extends AbstractBaseMap<Vet, Long> implements Vet
 
     @Override
     public Vet save(Vet vet) {
-        if(vet.getSpecialties().size() > 0){
+        if (vet.getSpecialties().size() > 0) {
             vet.getSpecialties().forEach(specialty -> {
-                if(specialty.getId() == null){
+                if (specialty.getId() == null) {
                     Specialty savedSpecialty = specialtyService.save(specialty);
                     specialty.setId(savedSpecialty.getId());
                 }

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -22,13 +23,13 @@ public class BeerServiceImpl implements BeerService {
     private final BeerRepository beerRepo;
     private final BeerMapper beerMapper;
 
-    @Cacheable(cacheNames = "beerCache", key="#beerId", condition = "#showInventoryOnHand == false ")
+    @Cacheable(cacheNames = "beerCache", key = "#beerId", condition = "#showInventoryOnHand == false ")
     @Override
     public BeerDto getById(UUID beerId, Boolean showInventoryOnHand) {
-        if(showInventoryOnHand){
+        if (showInventoryOnHand) {
             return beerMapper.beerToBeerDtoWithInventory(beerRepo.findById(beerId).orElseThrow(NotFoundException::new));
 
-        }else{
+        } else {
             return beerMapper.beerToBeerDto(beerRepo.findById(beerId).orElseThrow(NotFoundException::new));
         }
     }
@@ -46,17 +47,17 @@ public class BeerServiceImpl implements BeerService {
         BeerPagedList beerPagedList;
         Page<Beer> beerPage;
 
-        if(!ObjectUtils.isEmpty(beerName) && !ObjectUtils.isEmpty(beerStyle)){
+        if (!ObjectUtils.isEmpty(beerName) && !ObjectUtils.isEmpty(beerStyle)) {
             beerPage = beerRepo.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageRequest);
-        }else if(ObjectUtils.isEmpty(beerName) && !ObjectUtils.isEmpty(beerStyle)){
+        } else if (ObjectUtils.isEmpty(beerName) && !ObjectUtils.isEmpty(beerStyle)) {
             beerPage = beerRepo.findAllByBeerStyle(beerStyle, pageRequest);
-        }else if(!ObjectUtils.isEmpty(beerName) && ObjectUtils.isEmpty(beerStyle)){
+        } else if (!ObjectUtils.isEmpty(beerName) && ObjectUtils.isEmpty(beerStyle)) {
             beerPage = beerRepo.findAllByBeerName(beerName, pageRequest);
-        }else{
+        } else {
             beerPage = beerRepo.findAll(pageRequest);
         }
 
-        if(showInventoryOnHand){
+        if (showInventoryOnHand) {
             beerPagedList = new BeerPagedList(beerPage
                     .getContent()
                     .stream()
@@ -66,7 +67,7 @@ public class BeerServiceImpl implements BeerService {
                             .of(beerPage.getPageable().getPageNumber(),
                                     beerPage.getPageable().getPageSize()),
                     beerPage.getTotalElements());
-        }else{
+        } else {
             beerPagedList = new BeerPagedList(beerPage
                     .getContent()
                     .stream()

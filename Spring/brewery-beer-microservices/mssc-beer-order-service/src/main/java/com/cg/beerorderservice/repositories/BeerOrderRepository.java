@@ -17,7 +17,6 @@
 package com.cg.beerorderservice.repositories;
 
 
-
 import com.cg.beerorderservice.domain.BeerOrder;
 import com.cg.beerorderservice.domain.BeerOrderStatusEnum;
 import com.cg.beerorderservice.domain.Customer;
@@ -34,7 +33,7 @@ import java.util.UUID;
 /**
  * Created by jt on 2019-01-26.
  */
-public interface BeerOrderRepository  extends JpaRepository<BeerOrder, UUID> {
+public interface BeerOrderRepository extends JpaRepository<BeerOrder, UUID> {
 
     Page<BeerOrder> findAllByCustomer(Customer customer, Pageable pageable);
 

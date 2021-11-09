@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class BeerOrderManagerImpl implements BeerOrderManager{
+public class BeerOrderManagerImpl implements BeerOrderManager {
 
     public static final String ORDER_ID_HEADER = "ORDER_ID_HEADER";
 
@@ -53,7 +53,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager{
 
         beerOrderOptional.ifPresentOrElse(beerOrder -> {
             // - Depending on if beer order is valid or not, we send an event of either passed or failed
-            if(isValid){
+            if (isValid) {
                 // - The order is saved back to the database after sending to the validation passed event
                 sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.VALIDATION_PASSED);
 
@@ -78,7 +78,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager{
         beerOrderOptional.ifPresentOrElse(beerOrder -> {
             sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.ALLOCATION_SUCCESS);
             updateAllocatedQty(beerOrderDto);
-        }, () -> log.error("Order Id Not Found: " + beerOrderDto.getId() ));
+        }, () -> log.error("Order Id Not Found: " + beerOrderDto.getId()));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager{
             sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.ALLOCATION_NO_INVENTORY);
             awaitForStatus(beerOrder.getId(), BeerOrderStatusEnum.PENDING_INVENTORY);
             updateAllocatedQty(beerOrderDto);
-        }, () -> log.error("Order Id Not Found: " + beerOrderDto.getId() ));
+        }, () -> log.error("Order Id Not Found: " + beerOrderDto.getId()));
 
     }
 
@@ -99,7 +99,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager{
 
         beerOrderOptional.ifPresentOrElse(beerOrder -> {
             sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.ALLOCATION_FAILED);
-        }, () -> log.error("Order Not Found. Id: " + beerOrderDto.getId()) );
+        }, () -> log.error("Order Not Found. Id: " + beerOrderDto.getId()));
 
     }
 
@@ -109,7 +109,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager{
         allocatedOrderOptional.ifPresentOrElse(allocatedOrder -> {
             allocatedOrder.getBeerOrderLines().forEach(beerOrderLine -> {
                 beerOrderDto.getBeerOrderLines().forEach(beerOrderLineDto -> {
-                    if(beerOrderLine.getId() .equals(beerOrderLineDto.getId())){
+                    if (beerOrderLine.getId().equals(beerOrderLineDto.getId())) {
                         beerOrderLine.setQuantityAllocated(beerOrderLineDto.getQuantityAllocated());
                     }
                 });
@@ -153,7 +153,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager{
     }
 
     // - Used to send beer order event to the state machine
-    private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum eventEnum){
+    private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum eventEnum) {
         // - Build the state machine using the method build called
         StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> sm = build(beerOrder);
 
@@ -162,15 +162,15 @@ public class BeerOrderManagerImpl implements BeerOrderManager{
         // - When the BeerOrderStateMachineConfig detects a state change, then our BeerOrderStateChangeInterceptor
         // we created will detect that state change and due its processing, persisting that state change to the database.
         Message msg = MessageBuilder.withPayload(eventEnum)
-                                    .setHeader(ORDER_ID_HEADER, beerOrder.getId().toString())
-                                    .build();
-        
+                .setHeader(ORDER_ID_HEADER, beerOrder.getId().toString())
+                .build();
+
         sm.sendEvent(msg);
 
     }
 
 
-    private StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> build(BeerOrder beerOrder){
+    private StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> build(BeerOrder beerOrder) {
         // - Grab state machine
         StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> sm = stateMachineFactory.getStateMachine(beerOrder.getId());
 
@@ -180,25 +180,25 @@ public class BeerOrderManagerImpl implements BeerOrderManager{
         // - Injecting interceptor into the state machine as well as setting the status of the state machine to
         // the status of the beer order to keep track of it.
         sm.getStateMachineAccessor()
-                            .doWithAllRegions(sma -> {
-                               sma.addStateMachineInterceptor(stateChangeInterceptor);
-                               sma.resetStateMachine(new DefaultStateMachineContext<>(beerOrder.getOrderStatus(), null, null, null));
-                            });
-        
+                .doWithAllRegions(sma -> {
+                    sma.addStateMachineInterceptor(stateChangeInterceptor);
+                    sma.resetStateMachine(new DefaultStateMachineContext<>(beerOrder.getOrderStatus(), null, null, null));
+                });
+
         // - Start machine back up
         sm.start();
 
         return sm;
     }
 
-	@Override
-	public void beerOrderPickedUp(UUID id) {
-		Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(id);
-		
-		beerOrderOptional.ifPresentOrElse(beerOrder -> {
+    @Override
+    public void beerOrderPickedUp(UUID id) {
+        Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(id);
+
+        beerOrderOptional.ifPresentOrElse(beerOrder -> {
             sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.BEERORDER_PICKED_UP);
-        }, () -> log.error("Order Not Found. Id: " + id) );
-		
-		
-	}
+        }, () -> log.error("Order Not Found. Id: " + id));
+
+
+    }
 }

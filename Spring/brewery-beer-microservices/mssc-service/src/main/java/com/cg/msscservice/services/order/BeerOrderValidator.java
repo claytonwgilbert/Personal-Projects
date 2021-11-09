@@ -15,13 +15,13 @@ public class BeerOrderValidator {
 
     private final BeerRepository beerRepository;
 
-    public Boolean validateOrder(BeerOrderDto beerOrder){
+    public Boolean validateOrder(BeerOrderDto beerOrder) {
         AtomicInteger beersNotFound = new AtomicInteger();
 
         // - Check the orderLine object off the beer order
         beerOrder.getBeerOrderLines().forEach(orderLine -> {
             // - Check if we can find the order by upc in database...
-            if(beerRepository.findByUpc(orderLine.getUpc()) == null){
+            if (beerRepository.findByUpc(orderLine.getUpc()) == null) {
                 // - If not, increment beers not found variable which will fail this validation
                 beersNotFound.incrementAndGet();
             }

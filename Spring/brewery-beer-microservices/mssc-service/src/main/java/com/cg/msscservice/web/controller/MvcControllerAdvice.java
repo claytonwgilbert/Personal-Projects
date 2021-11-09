@@ -13,7 +13,7 @@ import java.util.List;
 public class MvcControllerAdvice {
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<List> validationErrorHandler(ConstraintViolationException ex){
+    public ResponseEntity<List> validationErrorHandler(ConstraintViolationException ex) {
         List<String> errors = new ArrayList<>(ex.getConstraintViolations().size());
 
         ex.getConstraintViolations().forEach(violation -> {

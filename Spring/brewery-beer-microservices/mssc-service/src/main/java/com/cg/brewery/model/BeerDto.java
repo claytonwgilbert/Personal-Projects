@@ -30,11 +30,11 @@ public class BeerDto implements Serializable {
     private Integer version;
 
     @Null
-    @JsonFormat(pattern = "yyyy-mm-dd'T'HH:mm:ss2", shape=JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-mm-dd'T'HH:mm:ss2", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime createdDate;
 
     @Null
-    @JsonFormat(pattern = "yyyy-mm-dd'T'HH:mm:ss2", shape=JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-mm-dd'T'HH:mm:ss2", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastModifiedDate;
 
     @NotBlank
@@ -48,7 +48,7 @@ public class BeerDto implements Serializable {
 
     @Positive
     @NotNull
-    @JsonFormat(shape=JsonFormat.Shape.STRING)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
     private Integer quantityOnHand;
 }

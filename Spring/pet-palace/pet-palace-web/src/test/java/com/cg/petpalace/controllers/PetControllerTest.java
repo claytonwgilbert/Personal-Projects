@@ -46,7 +46,7 @@ public class PetControllerTest {
     Set<PetType> petTypes;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         owner = Owner.builder().id(1l).build();
 
         petTypes = new HashSet<>();
@@ -54,8 +54,8 @@ public class PetControllerTest {
         petTypes.add(PetType.builder().id(2l).name("cat").build());
 
         mockMvc = MockMvcBuilders
-                  .standaloneSetup(controller)
-                  .build();
+                .standaloneSetup(controller)
+                .build();
 
     }
 

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Optional;
 
-public abstract class BeerOrderLineMapperDecorator implements BeerOrderLineMapper{
+public abstract class BeerOrderLineMapperDecorator implements BeerOrderLineMapper {
 
     private BeerService beerService;
     private BeerOrderLineMapper beerOrderLineMapper;

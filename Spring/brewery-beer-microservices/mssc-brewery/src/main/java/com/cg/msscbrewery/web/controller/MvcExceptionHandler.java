@@ -17,7 +17,7 @@ public class MvcExceptionHandler {
     //Method handles JSR bean validation errors if they were to happen as to provide end users with helpful error
     //messaging. Only applying to v2 since its our latest version of our api as v1 becomes deprecated.
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<List> validationErrorHandling(ConstraintViolationException e){
+    public ResponseEntity<List> validationErrorHandling(ConstraintViolationException e) {
         List<String> errors = new ArrayList<>(e.getConstraintViolations().size());
         e.getConstraintViolations().forEach(violation -> {
             errors.add(violation.getPropertyPath() + ":" + violation.getMessage());
@@ -29,7 +29,7 @@ public class MvcExceptionHandler {
     //If Spring runs into any problems binding data from client to the our object models on the backend, this will send
     //back a detailed list of reasons as to what went wrong.
     @ExceptionHandler(BindException.class)
-    public ResponseEntity<List> bindingErrorHandling(BindException ex){
+    public ResponseEntity<List> bindingErrorHandling(BindException ex) {
         return new ResponseEntity(ex.getAllErrors(), HttpStatus.BAD_REQUEST);
     }
 }

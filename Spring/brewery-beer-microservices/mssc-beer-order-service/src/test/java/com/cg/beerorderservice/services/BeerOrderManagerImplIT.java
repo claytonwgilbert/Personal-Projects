@@ -51,15 +51,15 @@ public class BeerOrderManagerImplIT {
     Customer testCustomer;
 
     UUID beerId = UUID.randomUUID();
-    
+
     @TestConfiguration
     static class RestTemplateBuilderProvider {
-    	@Bean(destroyMethod="stop")
-    	public WireMockServer wireMockServer() {
-    		WireMockServer server = with(wireMockConfig().port(8083));
-    		server.start();
-    		return server;
-    	}
+        @Bean(destroyMethod = "stop")
+        public WireMockServer wireMockServer() {
+            WireMockServer server = with(wireMockConfig().port(8083));
+            server.start();
+            return server;
+        }
     }
 
     @BeforeEach
@@ -68,22 +68,22 @@ public class BeerOrderManagerImplIT {
                 .customerName("Test Customer")
                 .build());
     }
-    
+
     @Test
     void testNewToAllocated() throws JsonProcessingException, InterruptedException {
         BeerDto beerDto = BeerDto.builder().id(beerId).upc("12345").build();
 
         wireMockServer.stubFor(get(BeerServiceRestTemplateImpl.BEER_UPC_PATH_V1 + "12345")
-        .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
+                .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
-    	BeerOrder beerOrder = createBeerOrder();
-    	
-    	BeerOrder savedBeer = beerOrderManager.newBeerOrder(beerOrder);
-    	
-    	await().untilAsserted(() -> {
-    		BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
-        	assertEquals(BeerOrderStatusEnum.ALLOCATED, foundOrder.getOrderStatus());
-    	});
+        BeerOrder beerOrder = createBeerOrder();
+
+        BeerOrder savedBeer = beerOrderManager.newBeerOrder(beerOrder);
+
+        await().untilAsserted(() -> {
+            BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
+            assertEquals(BeerOrderStatusEnum.ALLOCATED, foundOrder.getOrderStatus());
+        });
 
         await().untilAsserted(() -> {
             BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
@@ -92,11 +92,11 @@ public class BeerOrderManagerImplIT {
         });
 
         BeerOrder savedBeer2 = beerOrderRepository.findById(savedBeer.getId()).get();
-    	
-    	assertNotNull(savedBeer);
-    	assertEquals(BeerOrderStatusEnum.ALLOCATED, savedBeer2.getOrderStatus());
-    	savedBeer2.getBeerOrderLines().forEach(beerOrderLine -> {
-    	    assertEquals(beerOrderLine.getOrderQuantity(), beerOrderLine.getQuantityAllocated());
+
+        assertNotNull(savedBeer);
+        assertEquals(BeerOrderStatusEnum.ALLOCATED, savedBeer2.getOrderStatus());
+        savedBeer2.getBeerOrderLines().forEach(beerOrderLine -> {
+            assertEquals(beerOrderLine.getOrderQuantity(), beerOrderLine.getQuantityAllocated());
         });
     }
 
@@ -117,21 +117,21 @@ public class BeerOrderManagerImplIT {
         });
 
         beerOrderManager.beerOrderPickedUp(savedBeer.getId());
-        
+
         await().untilAsserted(() -> {
             BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
             assertEquals(BeerOrderStatusEnum.PICKED_UP, foundOrder.getOrderStatus());
         });
-        
+
         BeerOrder pickedUpBeer = beerOrderRepository.findById(savedBeer.getId()).get();
-        
+
         assertEquals(BeerOrderStatusEnum.PICKED_UP, pickedUpBeer.getOrderStatus());
     }
 
-    public BeerOrder createBeerOrder(){
+    public BeerOrder createBeerOrder() {
         BeerOrder beerOrder = BeerOrder.builder()
-                                       .customer(testCustomer)
-                                       .build();
+                .customer(testCustomer)
+                .build();
 
         Set<BeerOrderLine> lines = new HashSet<>();
         lines.add(BeerOrderLine.builder()
@@ -140,9 +140,9 @@ public class BeerOrderManagerImplIT {
                 .orderQuantity(1)
                 .beerOrder(beerOrder)
                 .build());
-        
+
         beerOrder.setBeerOrderLines(lines);
-        
+
         return beerOrder;
 
     }

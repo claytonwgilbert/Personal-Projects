@@ -11,8 +11,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="types")
-public class PetType extends BaseEntity{
+@Table(name = "types")
+public class PetType extends BaseEntity {
 
     @Builder
     public PetType(Long id, String name) {
@@ -20,7 +20,7 @@ public class PetType extends BaseEntity{
         this.name = name;
     }
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
     @Override
