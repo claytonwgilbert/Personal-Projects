@@ -57,8 +57,8 @@ public class Course {
     )
     private List<Student> students;
 
-    public void addStudent(Student student){
-        if(students == null){
+    public void addStudent(Student student) {
+        if (students == null) {
             students = new ArrayList<>();
             students.add(student);
         }

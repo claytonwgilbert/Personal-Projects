@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-@Embeddable // - Tells hibernate that we want these fields part of the same table as the students while having this data in
+@Embeddable
+// - Tells hibernate that we want these fields part of the same table as the students while having this data in
 // a separate class like it should be, since this is not student data.
 @Data
 @Builder
@@ -37,10 +38,10 @@ import javax.persistence.Embeddable;
         }
 )*/
 public class Guardian {
-    @Column(name="guardian_name")
+    @Column(name = "guardian_name")
     private String name;
-    @Column(name="guardian_email")
+    @Column(name = "guardian_email")
     private String email;
-    @Column(name="guardian_mobile")
+    @Column(name = "guardian_mobile")
     private String mobile;
 }

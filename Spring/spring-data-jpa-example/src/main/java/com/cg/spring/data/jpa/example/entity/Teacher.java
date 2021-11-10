@@ -25,10 +25,10 @@ public class Teacher {
             generator = "teacher_sequence")
     private Long teacherId;
 
-    @Column(name="first_name")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     private String lastName;
 
     @OneToMany(

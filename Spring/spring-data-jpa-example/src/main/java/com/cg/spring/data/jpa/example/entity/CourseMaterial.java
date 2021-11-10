@@ -32,7 +32,7 @@ public class CourseMaterial {
             optional = false // - Can't save a CourseMaterial object without a course
     )
     @JoinColumn(
-            name="course_id", //<-- Name of the column that will be created to host the foreign key in the course material table
+            name = "course_id", //<-- Name of the column that will be created to host the foreign key in the course material table
             referencedColumnName = "courseId" //<-- References the courseId attribute in Course class
     )
     private Course course;

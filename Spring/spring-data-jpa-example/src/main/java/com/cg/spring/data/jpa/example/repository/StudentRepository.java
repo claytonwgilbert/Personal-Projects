@@ -33,14 +33,14 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     // - Native Query, runs pure sql against database itself, most powerful
     @Query(
-            value="select * from tbl_students where s.email_address = ?1",
+            value = "select * from tbl_students where s.email_address = ?1",
             nativeQuery = true
     )
     Student getStudentByEmailAddressNative(String email);
 
     // - Named Param, like native but more readable
     @Query(
-            value="select * from tbl_students where s.email_address = :email",
+            value = "select * from tbl_students where s.email_address = :email",
             nativeQuery = true
     )
     Student getStudentByEmailAddressNamedParam(@Param("email") String email);
@@ -48,7 +48,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Transactional
     @Modifying
     @Query(
-            value="update tbl_students set s.first_name = ?1 where student.email_address = ?2",
+            value = "update tbl_students set s.first_name = ?1 where student.email_address = ?2",
             nativeQuery = true
     )
     int updateStudentNameByEmail(String name, String email);
