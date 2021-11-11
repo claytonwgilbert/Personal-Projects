@@ -1,10 +1,9 @@
 package com.cg.nfl.superbowl.dashboard.backend.model;
 
 import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,6 +15,9 @@ public class Team {
     private String teamName;
     private Long totalAppearances;
     private Long totalWins = 0L;
+
+    @Transient
+    private List<Game> gamesPlayed;
 
     public Team() {
     }
