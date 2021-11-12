@@ -16,7 +16,7 @@ public class Team {
     private Long totalAppearances;
     private Long totalWins = 0L;
 
-    @Transient
+    @Transient // - Prevents database from saving this field as a column
     private List<Game> gamesPlayed;
 
     public Team() {

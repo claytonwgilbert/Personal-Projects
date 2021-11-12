@@ -3,10 +3,12 @@ package com.cg.nfl.superbowl.dashboard.backend.controller;
 import com.cg.nfl.superbowl.dashboard.backend.model.Team;
 import com.cg.nfl.superbowl.dashboard.backend.repositories.GameRepository;
 import com.cg.nfl.superbowl.dashboard.backend.repositories.TeamRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 public class TeamController {
 
@@ -20,8 +22,9 @@ public class TeamController {
 
     @GetMapping("/team/{teamName}")
     public Team getTeam(@PathVariable String teamName){
+        System.out.println(teamName);
         Team foundTeam = teamRepository.findByTeamName(teamName);
-        foundTeam.setGamesPlayed(gameRepository.getByWinnerOrLoserOOrderBySbDateDesc(teamName, teamName));
+        foundTeam.setGamesPlayed(gameRepository.getByWinnerOrLoserOrderBySbDateDesc(teamName, teamName));
         // - If we had alot of results and needed to return only a few results to work with on the front end
         //foundTeam.setGamesPlayed(gameRepository.findLatestGamesByTeam(teamName, 4));
 
