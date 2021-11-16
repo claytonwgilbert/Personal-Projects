@@ -1,8 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { GameDetailsCard } from '../components/GameDetailsCard';
 import { TeamsTile } from '../components/TeamsTile';
-import { YearSelector } from '../components/YearSelector';
 import './HomePage.scss';
 
 export const HomePage = () => {
