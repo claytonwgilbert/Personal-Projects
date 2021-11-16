@@ -1,9 +1,10 @@
 import { React } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {Routes} from 'react-router';
-import './App.css';
+import './App.scss';
 import {GamePage} from "./pages/GamePage";
 import {TeamPage} from "./pages/TeamPage";
+import {HomePage} from "./pages/HomePage";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/teams/:teamName" element={<TeamPage />}></Route>
           <Route path="/teams/:teamName/game/:year" element={<GamePage />}></Route>
+          <Route path="/" element={<HomePage />}></Route>
         </Routes>
       </Router>
     </div>

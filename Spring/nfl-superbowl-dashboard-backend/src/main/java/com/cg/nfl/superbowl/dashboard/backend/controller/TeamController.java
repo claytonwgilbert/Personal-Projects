@@ -1,12 +1,13 @@
 package com.cg.nfl.superbowl.dashboard.backend.controller;
 
+import com.cg.nfl.superbowl.dashboard.backend.model.Game;
 import com.cg.nfl.superbowl.dashboard.backend.model.Team;
 import com.cg.nfl.superbowl.dashboard.backend.repositories.GameRepository;
 import com.cg.nfl.superbowl.dashboard.backend.repositories.TeamRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -29,5 +30,18 @@ public class TeamController {
         //foundTeam.setGamesPlayed(gameRepository.findLatestGamesByTeam(teamName, 4));
 
         return foundTeam;
+    }
+
+    @GetMapping("/team/{teamName}/game")
+    public Game getGameByYear(@PathVariable String teamName, @RequestParam int year){
+        LocalDate startDate = LocalDate.of(year, 1, 1);
+        LocalDate endDate = LocalDate.of(year + 1, 1, 1);
+
+        return this.gameRepository.getGamePlayedByYear(teamName, startDate, endDate);
+    }
+
+    @GetMapping("/teams")
+    public Iterable<Team> getAllTeams(){
+        return this.teamRepository.findAll();
     }
 }
