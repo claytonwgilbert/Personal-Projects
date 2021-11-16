@@ -14,8 +14,8 @@ export const GamePage = () => {
     useEffect(
         () => {
             const getGameForYear = async () => {
-                const response = await fetch(`http://localhost:8080/team/${teamName}/game?year=${year}`);
-                const response2 = await fetch(`http://localhost:8080/team/${teamName}`);
+                const response = await fetch(`${process.env.REACT_APP_API_ROOT_URL}/team/${teamName}/game?year=${year}`);
+                const response2 = await fetch(`${process.env.REACT_APP_API_ROOT_URL}/team/${teamName}`);
                 const data = await response.json();
                 const data2 = await response2.json();
                 setGame(data);
