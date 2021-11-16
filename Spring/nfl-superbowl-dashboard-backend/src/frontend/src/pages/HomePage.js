@@ -28,7 +28,7 @@ export const HomePage = () => {
                 <h1 className="header-name">Superbowl History Dashboard</h1>
             </div>
             <div className="team-grid">
-                {teams.map(team => <TeamsTile teamName={team.teamName}/>)}
+                {teams.map(team => <TeamsTile key={team.id} teamName={team.teamName}/>)}
             </div> 
         </div>
     );

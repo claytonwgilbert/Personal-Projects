@@ -12,7 +12,7 @@ export const YearSelector = ({team}) => {
         <ol className="YearSelector">
             {
                 years.map(year => (
-                <li>
+                <li key={Math.random()}>
                     <Link to={`/teams/${teamName}/game/${year[0]}`}>{year[0]}</Link>
                 </li>
             ))

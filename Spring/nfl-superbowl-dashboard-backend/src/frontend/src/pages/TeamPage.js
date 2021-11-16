@@ -51,9 +51,9 @@ export const TeamPage = () => {
             </div>
             <div className="game-details-card">
                 <h3>Games</h3>
-                <GameDetailsCard  teamName={team.teamName} game={team.gamesPlayed[0]}/>
+                <GameDetailsCard teamName={team.teamName} game={team.gamesPlayed[0]}/>
             </div>
-            {team.gamesPlayed.slice(1).map(game => <GameSmallCard teamName={team.teamName} game={game}/>)}
+            {team.gamesPlayed.slice(1).map(game => <GameSmallCard key={game.id} teamName={team.teamName} game={game}/>)}
             <div>
                 <Link className="more-link" to={`/teams/${teamName}/game/${years[0][0]}`}>More ></Link>
             </div>
