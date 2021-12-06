@@ -22,7 +22,8 @@ public class User {
     private boolean enabled;
     @Column(length = 64)
     private String photos;
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="user_roles",
             joinColumns = @JoinColumn(name="user_id"),
@@ -108,6 +109,20 @@ public class User {
         this.roles.add(role);
     }
 
+    @Transient
+    public String getPhotoPath(){
+        if(this.getId() == null || this.photos == null){
+            return "/images/default-user.png";
+        }
+        this.photos = this.photos.replace(' ', '-'); // - Remove space and replace with dash
+
+        return "/user-photos/" + this.getId() + "/" + this.photos;
+    }
+
+    @Transient
+    public String getFullUserName(){
+        return firstName + " " + lastName;
+    }
 
     @Override
     public String toString() {

@@ -1,18 +1,18 @@
 package com.cg.beerorderservice.web.mappers;
 
 import com.cg.beerorderservice.domain.BeerOrderLine;
+import com.cg.beerorderservice.domain.BeerOrderLine.BeerOrderLineBuilder;
 import com.cg.brewery.model.BeerOrderLineDto;
-
+import com.cg.brewery.model.BeerOrderLineDto.BeerOrderLineDtoBuilder;
 import javax.annotation.processing.Generated;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Generated(
-        value = "org.mapstruct.ap.MappingProcessor",
-        date = "2021-10-24T06:42:42-0400",
-        comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.8 (Oracle Corporation)"
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2021-11-29T14:19:32-0500",
+    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 3.27.0.v20210823-1758, environment: Java 11.0.10 (Oracle Corporation)"
 )
 @Component
 @Qualifier("delegate")
@@ -23,45 +23,45 @@ public class BeerOrderLineMapperImpl_ implements BeerOrderLineMapper {
 
     @Override
     public BeerOrderLineDto beerOrderLineToDto(BeerOrderLine line) {
-        if (line == null) {
+        if ( line == null ) {
             return null;
         }
 
-        BeerOrderLineDto beerOrderLineDto = new BeerOrderLineDto();
+        BeerOrderLineDtoBuilder beerOrderLineDto = BeerOrderLineDto.builder();
 
-        beerOrderLineDto.setId(line.getId());
-        if (line.getVersion() != null) {
-            beerOrderLineDto.setVersion(line.getVersion().intValue());
+        beerOrderLineDto.beerId( line.getBeerId() );
+        beerOrderLineDto.createdDate( dateMapper.asOffsetDateTime( line.getCreatedDate() ) );
+        beerOrderLineDto.id( line.getId() );
+        beerOrderLineDto.lastModifiedDate( dateMapper.asOffsetDateTime( line.getLastModifiedDate() ) );
+        beerOrderLineDto.orderQuantity( line.getOrderQuantity() );
+        beerOrderLineDto.quantityAllocated( line.getQuantityAllocated() );
+        beerOrderLineDto.upc( line.getUpc() );
+        if ( line.getVersion() != null ) {
+            beerOrderLineDto.version( line.getVersion().intValue() );
         }
-        beerOrderLineDto.setCreatedDate(dateMapper.asOffsetDateTime(line.getCreatedDate()));
-        beerOrderLineDto.setLastModifiedDate(dateMapper.asOffsetDateTime(line.getLastModifiedDate()));
-        beerOrderLineDto.setUpc(line.getUpc());
-        beerOrderLineDto.setBeerId(line.getBeerId());
-        beerOrderLineDto.setOrderQuantity(line.getOrderQuantity());
-        beerOrderLineDto.setQuantityAllocated(line.getQuantityAllocated());
 
-        return beerOrderLineDto;
+        return beerOrderLineDto.build();
     }
 
     @Override
     public BeerOrderLine dtoToBeerOrderLine(BeerOrderLineDto dto) {
-        if (dto == null) {
+        if ( dto == null ) {
             return null;
         }
 
-        BeerOrderLine beerOrderLine = new BeerOrderLine();
+        BeerOrderLineBuilder beerOrderLine = BeerOrderLine.builder();
 
-        beerOrderLine.setId(dto.getId());
-        if (dto.getVersion() != null) {
-            beerOrderLine.setVersion(dto.getVersion().longValue());
+        beerOrderLine.beerId( dto.getBeerId() );
+        beerOrderLine.createdDate( dateMapper.asTimestamp( dto.getCreatedDate() ) );
+        beerOrderLine.id( dto.getId() );
+        beerOrderLine.lastModifiedDate( dateMapper.asTimestamp( dto.getLastModifiedDate() ) );
+        beerOrderLine.orderQuantity( dto.getOrderQuantity() );
+        beerOrderLine.quantityAllocated( dto.getQuantityAllocated() );
+        beerOrderLine.upc( dto.getUpc() );
+        if ( dto.getVersion() != null ) {
+            beerOrderLine.version( dto.getVersion().longValue() );
         }
-        beerOrderLine.setCreatedDate(dateMapper.asTimestamp(dto.getCreatedDate()));
-        beerOrderLine.setLastModifiedDate(dateMapper.asTimestamp(dto.getLastModifiedDate()));
-        beerOrderLine.setBeerId(dto.getBeerId());
-        beerOrderLine.setUpc(dto.getUpc());
-        beerOrderLine.setOrderQuantity(dto.getOrderQuantity());
-        beerOrderLine.setQuantityAllocated(dto.getQuantityAllocated());
 
-        return beerOrderLine;
+        return beerOrderLine.build();
     }
 }

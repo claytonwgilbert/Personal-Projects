@@ -8,6 +8,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
@@ -95,6 +98,33 @@ class UserRepositoryTest {
         Optional<User> user = userRepository.findById(2);
         assertThat(user).isEmpty();
     }
+
+    @Test
+    public void testEnableDisableUser(){
+        User user = userRepository.findById(3).get();
+        assertThat(user.isEnabled() == true);
+        userRepository.updateEnabledStatus(3, false);
+        User userUpdated = userRepository.findById(3).get();
+        assertThat(userUpdated.isEnabled() == false);
+    }
+
+    @Test
+    public void testSearchForUser(){
+        String searchTerm = "Bruce";
+
+        int pageNumberMin = 0;
+        int pageNumberMax = 4;
+        Pageable page = PageRequest.of(pageNumberMin, pageNumberMax);
+
+        Page<User> foundUsers = userRepository.findUsersThroughSearch(searchTerm, page);
+
+        List<User> usersList = foundUsers.getContent();
+
+        usersList.forEach(user -> System.out.println(user));
+
+        assertThat(usersList.size()).isGreaterThan(0);
+    }
+
 
 
 
