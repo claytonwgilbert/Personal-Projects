@@ -3,7 +3,6 @@ package com.cg.shopme.admin.user;
 import com.cg.shopme.admin.FileUploadUtil;
 import com.cg.shopme.common.entity.User;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;

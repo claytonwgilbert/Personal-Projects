@@ -7,15 +7,20 @@
 @media screen and (max-width: 768px){
     div.user-details{ display: none }
     div.less-user-details { display: block; }
+    div.category-details{ display: none }
+    div.less-category-details { display: block; }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px){
     div.user-details{ display: block; }
     div.less-user-details { display: none }
+    div.category-details{ display: block; }
+    div.less-category-details { display: none }
     .hide-on-medium-screen { display: none }
 }
 
 @media screen and (min-width: 1024px){
     div.less-user-details { display: none }
+    div.less-category-details { display: none }
     .hide-on-medium-screen { display: table-cell }
 }

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+
+    <title>Manage Categories</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+
+</head>
+<body>
+<div class="container-fluid">
+    <div>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/images/ShopmeAdminSmall.png}"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="topNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users}">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/categories}">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/brands}">Brands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/products}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/customers}">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/shipping}">Shipping</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/orders}">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/reports}">Sales Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/articles}">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/menus}">Menus</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/settings}">Settings</a>
+                    </li>
+                    <li>
+                        <span class="fas fa-category fa-2x icon-silver"></span>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                           sec:authentication="principal.fullname" th:href="@{/account}"></a>
+                        <div class="dropdown-menu">
+                            <a th:href="@{/account}" class="dropdown-item">My Account</a>
+                            <a id="logoutLink" class="dropdown-item" href="">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div>
+        <h2>Manage Categories</h2>
+        <a th:href="@{/categories/new}"><button class="btn btn-outline-primary fas fa-plus-circle fa-2x icon-dark"></button></a>
+        &nbsp;|&nbsp;
+        <a th:href="@{/categories/export/csv}"><button class="btn btn-outline-primary fas fa-file-csv fa-2x icon-dark"></button></a>
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div>
+        <form th:action="@{'/categories/page/1'}" class="form-check-inline m-3 d-flex">
+            <!--These hidden inputs will be sent as part of url when form is submitted-->
+            <input type="hidden" name="sortField" th:value="${sortField}"/>
+            <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+            Filter:&nbsp;
+            <div class="col-auto">
+                <input type="search" name="keyword" th:value="${searchTerm}" class="form-control" required />
+            </div>
+            &nbsp;&nbsp;
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" onclick="clearFilter()">
+                <i class="fas fa-eraser"></i>
+            </button>
+        </form>
+    </div>
+
+    <div class="less-category-details">
+        <div th:each="category : ${categories}" class="row">
+            <div class="col-4">
+                <span th:if="${category.image == null}"class="fas fa-portrait fa-3x icon-silver"></span>
+                <img th:if="${category.image != null}" th:src="@{${category.getPhotoPath}}" style="width: 100px" />
+            </div>
+            <div class="col-8">
+                <div>[[${category.id}]]</div>
+                <div>[[${category.name}]]</div>
+                <div class="mt-2">
+                    <a th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+                       th:href="@{'/categories/' + ${category.id} + '/enabled/false'}" title="Disable category Status"></a>
+                    <a th:if="${category.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+                       th:href="@{'/categories/' + ${category.id} + '/enabled/true'}" title="Enable category Status"></a>
+                    &nbsp;
+                    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${category.id}}" title="Edit Category"></a>
+                    &nbsp;
+                    <a class="fas fa-trash fa-2x icon-dark link-delete" th:categoryId="${category.id}" th:href="@{'/categories/delete/' + ${category.id}}" title="Delete Category"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-details">
+        <table class="table table-striped table-bordered table-hover table-responsive-xl">
+            <thead class="table-dark">
+                <tr>
+                    <th class="hide-on-medium-screen">
+                        <a th:if="${sortField != 'id'}" th:href="@{'/categories/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${sortDir} + ${searchTerm != null ? '&keyword=' + searchTerm : ''}}" class="text-white">
+                            ID
+                        </a>
+                        <a th:if="${sortField == 'id'}" th:href="@{'/categories/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir} + ${searchTerm != null ? '&keyword=' + searchTerm : ''}}" class="text-white">
+                            ID
+                        </a>
+                        <span th:if="${sortField == 'id'}" th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                    </th>
+                    <th>
+                        Category Image
+                    </th>
+                    <th>
+                        <a th:if="${sortField != 'name'}" th:href="@{'/categories/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${sortDir} + ${searchTerm != null ? '&keyword=' + searchTerm : ''}}" class="text-white">
+                            Category Name
+                        </a>
+                        <a th:if="${sortField == 'name'}" th:href="@{'/categories/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir} + ${searchTerm != null ? '&keyword=' + searchTerm : ''}}" class="text-white">
+                            Category Name
+                        </a>
+                        <span th:if="${sortField == 'name'}" th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                    </th>
+                    <th>
+                        <a th:if="${sortField != 'alias'}" th:href="@{'/categories/page/' + ${currentPage} + '?sortField=alias&sortDir=' + ${sortDir} + ${searchTerm != null ? '&keyword=' + searchTerm : ''}}" class="text-white">
+                            Alias
+                        </a>
+                        <a th:if="${sortField == 'alias'}" th:href="@{'/categories/page/' + ${currentPage} + '?sortField=alias&sortDir=' + ${reverseSortDir} + ${searchTerm != null ? '&keyword=' + searchTerm : ''}}" class="text-white">
+                            Alias
+                        </a>
+                        <span th:if="${sortField == 'alias'}" th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                    </th>
+                    <th>Enabled</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="category : ${categories}">
+                    <td class="hide-on-medium-screen">[[${category.id}]]</td>
+                    <td>
+                        <img th:src="@{${category.getPhotoPath}}" style="width: 100px" />
+                    </td>
+                    <td>[[${category.name}]]</td>
+                    <td class="hide-on-medium-screen">[[${category.alias}]]</td>
+                    <td>
+                        <span th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green" title="Disabled Category Status"></span>
+                        <span th:if="${category.enabled == false}" class="fas fa-circle fa-2x icon-dark" title="Enabled Category Status"></span>
+                    </td>
+                    <td>
+                        <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${category.id}}" title="Edit Category"></a>
+                        &nbsp;<span th:if="${category.hasChildren == false}">
+                            <a class="fas fa-trash fa-2x icon-dark link-delete" th:categoryId="${category.id}" th:href="@{'/categories/delete/' + ${category.id}}" title="Delete Category"></a>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="confirmModal" class="modal fade text-center">
+        <div th:class="modal-dialog">
+            <div th:class="modal-content">
+                <div th:class="modal-header">
+                    <h4 th:class="modal-title" id="modalTitle">Delete Confirmation</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <span id="confirmText"></span>
+                </div>
+
+                <div class="modal-footer">
+                    <a id="deleteConfirm" class="btn btn-success" href="">Yes</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${totalPages > 1}">
+        <nav>
+            <ul class="pagination justify-content-center flex-wrap">
+                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                    <a class="page-link" th:href="@{'/categories/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${searchTerm != null ? '&keyword=' + searchTerm : ''}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                    <a class="page-link" th:href="@{'/categories/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${searchTerm != null ? '&keyword=' + searchTerm : ''}}">
+                        [[${i}]]
+                    </a>
+                </li>
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a class="page-link" th:href="@{'/categories/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${searchTerm != null ? '&keyword=' + searchTerm : ''}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="text-center">
+        <p>Shopme Control Panel - Copyright &copy; Shopme</p>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.link-delete').on('click', function(e){
+            e.preventDefault();
+            link = $(this);
+            categoryId = link.attr("categoryId");
+            $("#confirmText").text('Are you sure you want to delete Category with ID of: ' + categoryId);
+            $("#confirmModal").modal('show');
+            $("#deleteConfirm").attr("href", link.attr("href"));
+
+        });
+    });
+
+    function clearFilter(){
+        window.location = "[[@{/categories}]]";
+    }
+</script>
+
+</body>
+</html>
