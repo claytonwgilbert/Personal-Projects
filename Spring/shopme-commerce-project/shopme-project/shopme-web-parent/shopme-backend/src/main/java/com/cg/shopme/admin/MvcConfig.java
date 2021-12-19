@@ -29,5 +29,15 @@ public class MvcConfig implements WebMvcConfigurer { // - Used to expose user ph
         // - Allows frontend to access the url and retrieve access to photos
         registry.addResourceHandler("/category-photos/**")
                 .addResourceLocations("file:/" + categoryPhotosPath + "/");
+
+
+        String dirNameBrand = "../brand-photos";
+        Path brandPhotosDir = Paths.get(dirNameBrand);
+
+        String brandPhotosPath = brandPhotosDir.toFile().getAbsolutePath();
+
+        // - Allows frontend to access the url and retrieve access to photos
+        registry.addResourceHandler("/brand-photos/**")
+                .addResourceLocations("file:/" + brandPhotosPath + "/");
     }
 }

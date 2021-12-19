@@ -127,4 +127,8 @@ public class Category {
         return !this.children.isEmpty();
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
