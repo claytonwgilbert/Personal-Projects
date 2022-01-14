@@ -7,13 +7,12 @@ import { User } from "./user.model";
 
 //Defining how we get our response data back from rest calls below, we pass this to the post method below
 interface AuthResponseData{
-idToken: string;
-email: string;
-refreshToken: string;
-expiresIn: string;
-localId: string;
+    idToken: string;
+    email: string;
+    refreshToken: string;
+    expiresIn: string;
+    localId: string;
 }
-
 
 @Injectable({providedIn:'root'})
 export class AuthService{
