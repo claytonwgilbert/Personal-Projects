@@ -51,7 +51,7 @@ function loadPlanetsData(){
   async function savePlanet(planet){
     try {
       //insert + update = updateOne(upsert) or findOneAndUpdate <--if property already exists in db and if it doesn't it will add, if it does exist, it will update
-      await planets.updateOne({
+      await planets.findOneAndUpdate({
         keplerName: planet.kepler_name, //what we are searching by to find the object we want to update
       }, {
         keplerName: planet.kepler_name, //this is the data that will update already in db property if upsert = true or create new
