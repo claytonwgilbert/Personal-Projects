@@ -4,6 +4,7 @@ import com.cg.inboxapp.email.Email;
 import com.cg.inboxapp.email.EmailRepository;
 import com.cg.inboxapp.email.EmailService;
 import com.cg.inboxapp.emailslist.EmailsList;
+import com.cg.inboxapp.emailslist.EmailsListPrimaryKey;
 import com.cg.inboxapp.emailslist.EmailsListRepository;
 import com.cg.inboxapp.folders.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,13 +15,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Controller
 public class EmailController {
@@ -30,13 +27,15 @@ public class EmailController {
     private EmailRepository emailRepository;
     private EmailService emailService;
     private UnreadEmailStatsRepository unreadEmailStatsRepository;
+    private EmailsListRepository emailsListRepository;
 
-    public EmailController(FolderRepository folderRepository, FolderService folderService, EmailRepository emailRepository, EmailService emailService, UnreadEmailStatsRepository unreadEmailStatsRepository) {
+    public EmailController(FolderRepository folderRepository, FolderService folderService, EmailRepository emailRepository, EmailService emailService, UnreadEmailStatsRepository unreadEmailStatsRepository, EmailsListRepository emailsListRepository) {
         this.folderRepository = folderRepository;
         this.folderService = folderService;
         this.emailRepository = emailRepository;
         this.emailService = emailService;
         this.unreadEmailStatsRepository = unreadEmailStatsRepository;
+        this.emailsListRepository = emailsListRepository;
     }
 
     @GetMapping("/email/{emailId}")
@@ -48,10 +47,6 @@ public class EmailController {
         }
 
         String userId = principal.getAttribute("login");
-
-
-        //Check if email has already been read or not
-
 
         //Mark email read and decrement unread total
         emailService.markEmailReadAndDecrement(emailId, userId, folder);
@@ -66,10 +61,22 @@ public class EmailController {
         model.addAttribute("email", emailToView);
         model.addAttribute("toIds", toIds);
 
-        //Get unread count for email items
-        List<UnreadEmailStats> unreadStats = unreadEmailStatsRepository.findAllById(userId);
-        Map<String, Integer> stats = unreadStats.stream().collect(Collectors.toMap(UnreadEmailStats::getLabel, UnreadEmailStats::getUnreadCount));
-        model.addAttribute("stats", stats);
+        EmailsListPrimaryKey emailsListPrimaryKey = new EmailsListPrimaryKey();
+        emailsListPrimaryKey.setUserId(userId);
+        emailsListPrimaryKey.setLabel(folder);
+        emailsListPrimaryKey.setTimeId(emailToView.getId());
+
+        //Check if email has already been read or not
+        Optional<EmailsList> findById = emailsListRepository.findById(emailsListPrimaryKey);
+        if(findById.isPresent()){
+            EmailsList item = findById.get();
+            if(item.isRead() == false){
+                item.setRead(true);
+                emailsListRepository.save(item);
+                unreadEmailStatsRepository.decrementUnreadCount(userId, folder);
+            }
+        }
+        model.addAttribute("stats", folderService.mapCountToLabels(userId));
 
         //Get user folders
         List<Folder> userFolders = folderRepository.findAllById(userId);
@@ -77,6 +84,8 @@ public class EmailController {
 
         List<Folder> defaultFolders = folderService.initDefaultUserFolders(userId);
         model.addAttribute("defaultFolders", defaultFolders);
+
+        model.addAttribute("stats", folderService.mapCountToLabels(userId));
 
         return "email-page";
     }

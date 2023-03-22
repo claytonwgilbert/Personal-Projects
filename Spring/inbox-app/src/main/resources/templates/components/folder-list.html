@@ -16,7 +16,7 @@
                   "
                 th:each="folder : ${folders}">
   
-                  <span th:text="${folder.label}">Folder</span>
+                  <span th:href="@{'/?folder=' + ${folder.label}}" th:text="${folder.label}">Folder</span>
                   <span th:if="${folderToUnreadCounts.get(folder.label)}" th:text="${folderToUnreadCounts.get(folder.label)}" class="badge bg-primary rounded-pill">15</span>
               </a>
             </div>

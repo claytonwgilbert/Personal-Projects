@@ -1,6 +1,5 @@
 package com.cg.inboxapp.controllers;
 
-import com.cg.inboxapp.email.Email;
 import com.cg.inboxapp.email.EmailService;
 import com.cg.inboxapp.folders.Folder;
 import com.cg.inboxapp.folders.FolderRepository;
@@ -16,11 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller

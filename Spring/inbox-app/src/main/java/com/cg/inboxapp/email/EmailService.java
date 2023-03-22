@@ -55,6 +55,7 @@ public class EmailService {
         key2.setTimeId(emailToSend.getId());
         key2.setUserId(from);
         key2.setLabel("Sent Items");
+
         EmailsList emailItemSent = new EmailsList();
         emailItemSent.setId(key2);
         emailItemSent.setTo(to);
