@@ -1,13 +1,7 @@
 package com.cg.eazyschool.model;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@ToString
+@Data
 public class Holiday {
     private final String day;
     private final String reason;

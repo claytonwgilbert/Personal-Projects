@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ContactService {
-
     public boolean saveMessageDetails(Contact contact){
         boolean isSaved = false;
         log.info(contact.toString());
