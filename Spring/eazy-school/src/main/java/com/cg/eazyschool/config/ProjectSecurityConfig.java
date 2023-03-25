@@ -19,6 +19,7 @@ public class ProjectSecurityConfig {
 
         http.csrf()
                 .ignoringAntMatchers("/saveMsg") //We don't want security for people trying to use contact form as it is public
+                .ignoringAntMatchers("/public/**")
                 //.ignoringAntMatchers("/h2-console/**").and().authorizeHttpRequests().mvcMatchers("/h2-console/**").permitAll().and().headers().frameOptions().disable() //Allow H2 Console DB access
                 .and()
                 .authorizeHttpRequests()
@@ -31,6 +32,7 @@ public class ProjectSecurityConfig {
                 .mvcMatchers("/about").permitAll()
                 .mvcMatchers("/login").permitAll()
                 .mvcMatchers("/logout").permitAll()
+                .mvcMatchers("/public/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/dashboard")
                 .failureUrl("/login?error=true").permitAll()

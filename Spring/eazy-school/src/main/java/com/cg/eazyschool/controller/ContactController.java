@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -33,7 +34,7 @@ public class ContactController {
     }
 
     @PostMapping("/saveMsg")
-    public String submitContactInfo(@Validated @ModelAttribute("contact") Contact contact, Model model, Errors errors){
+    public String submitContactInfo(@Valid @ModelAttribute("contact") Contact contact, Model model, Errors errors){
         if(errors.hasErrors()){
             log.error("There were errors submitting your form: ", errors.toString());
             return "contact";
