@@ -1,9 +1,11 @@
 package com.cg.eazyschool.repository;
 
-import com.cg.eazyschool.model.Holiday;
+import com.cg.eazyschool.model.Roles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface HolidaysRepository extends JpaRepository<Holiday, String> {
+public interface RolesRepository extends JpaRepository<Roles, Integer> {
+
+    Roles getByRoleName(String roleName);
 }
