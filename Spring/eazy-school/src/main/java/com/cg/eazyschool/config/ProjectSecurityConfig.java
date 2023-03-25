@@ -17,7 +17,9 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf().ignoringAntMatchers("/saveMsg")
+        http.csrf()
+                .ignoringAntMatchers("/saveMsg") //We don't want security for people trying to use contact form as it is public
+                //.ignoringAntMatchers("/h2-console/**").and().authorizeHttpRequests().mvcMatchers("/h2-console/**").permitAll().and().headers().frameOptions().disable() //Allow H2 Console DB access
                 .and()
                 .authorizeHttpRequests()
                 .mvcMatchers("/dashboard").authenticated()

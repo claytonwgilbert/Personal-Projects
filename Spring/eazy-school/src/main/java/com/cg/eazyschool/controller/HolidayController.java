@@ -1,6 +1,7 @@
 package com.cg.eazyschool.controller;
 
 import com.cg.eazyschool.model.Holiday;
+import com.cg.eazyschool.repository.HolidaysRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class HolidayController {
+
+    private HolidaysRepository holidaysRepository;
+
+    public HolidayController(HolidaysRepository holidaysRepository) {
+        this.holidaysRepository = holidaysRepository;
+    }
 
     @GetMapping("/holidays/{display}")
     public String displayHolidayPage(Model model,
@@ -20,6 +28,8 @@ public class HolidayController {
                                      //@RequestParam(required = false) boolean federal
                                      //@RequestParam(required = false) boolean festival
                                      ){
+        /*
+        In memory data
         List<Holiday> holidays = Arrays.asList(
                 new Holiday(" Jan 1 ","New Year's Day", Holiday.Type.FESTIVAL),
                 new Holiday(" Oct 31 ","Halloween", Holiday.Type.FESTIVAL),
@@ -30,9 +40,13 @@ public class HolidayController {
                 new Holiday(" Sep 5 ","Labor Day", Holiday.Type.FEDERAL),
                 new Holiday(" Nov 11 ","Veterans Day", Holiday.Type.FEDERAL)
         );
+        */
+
+        Iterable<Holiday> holidays = holidaysRepository.findAll();
+        List<Holiday> holidaysList = StreamSupport.stream(holidays.spliterator(), false).collect(Collectors.toList());
         Holiday.Type[] types = Holiday.Type.values();
         for(Holiday.Type type : types){
-            model.addAttribute(type.toString(), holidays.stream().filter(holiday -> holiday.getType().equals(type)).collect(Collectors.toList()));
+            model.addAttribute(type.toString(), holidaysList.stream().filter(holiday -> holiday.getType().equals(type)).collect(Collectors.toList()));
         }
         //Query Params
         //model.addAttribute("federal", federal);
