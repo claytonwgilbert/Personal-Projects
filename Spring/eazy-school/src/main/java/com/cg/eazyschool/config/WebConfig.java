@@ -6,7 +6,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-
     //Associating views with urls that are static and don't change...eliminates need for controller
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

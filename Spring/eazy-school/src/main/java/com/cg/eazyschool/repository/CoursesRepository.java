@@ -1,10 +1,9 @@
 package com.cg.eazyschool.repository;
 
-import com.cg.eazyschool.model.Roles;
+import com.cg.eazyschool.model.Courses;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RolesRepository extends JpaRepository<Roles, Integer> {
-    Roles getByRoleName(String roleName);
+public interface CoursesRepository extends JpaRepository<Courses, Integer> {
 }

@@ -4,6 +4,10 @@ import com.cg.eazyschool.model.Contact;
 import com.cg.eazyschool.model.EazySchoolConstants;
 import com.cg.eazyschool.repository.ContactsRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,23 +36,20 @@ public class ContactService {
         return isSaved;
     }
 
-    public List<Contact> findMsgsWithOpenStatus(){
-        List<Contact> openContacts = contactsRepository.findByStatus(EazySchoolConstants.OPEN);
+    public Page<Contact> findMsgsWithOpenStatus(int pageNum, String sortField, String sortDir){
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
+                sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortDir).descending());
 
-        return openContacts;
+        Page<Contact> foundContacts = contactsRepository.findByStatus(EazySchoolConstants.OPEN, pageable);
+
+        return foundContacts;
     }
 
-    public boolean updateMsgStatus(int contactId, String updatedBy){
+    public boolean updateMsgStatus(int contactId){
         boolean isUpdated = false;
-        Optional<Contact> foundContact = contactsRepository.findById(contactId);
-        foundContact.ifPresent(contactRef -> {
-            contactRef.setStatus(EazySchoolConstants.CLOSE);
-            //Handled by auditing in base entity
-            //contactRef.setUpdatedAt(LocalDateTime.now());
-            //contactRef.setUpdatedBy(updatedBy);
-        });
-        Contact updatedContact = contactsRepository.save(foundContact.get());
-        if(updatedContact != null && !updatedContact.getUpdatedBy().equals(null)){
+        int rows = contactsRepository.updateStatusById(EazySchoolConstants.CLOSE, contactId);
+        if(rows > 0){
             isUpdated = true;
         }
         return isUpdated;

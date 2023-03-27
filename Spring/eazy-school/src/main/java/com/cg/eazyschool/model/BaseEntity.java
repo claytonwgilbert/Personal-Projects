@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class) //AuditingEntityListener.class comes with Spring Data and works with annotations like @LastModifiedBy @LastModifiedDate @CreatedBy and @CreatedDate
 public class BaseEntity {
     @CreatedDate
     @Column(updatable = false)
@@ -29,3 +29,6 @@ public class BaseEntity {
     @Column(insertable = false)
     private String updatedBy;
 }
+
+//@CreatedDate and @LastModifiedBy will be known by looking at the time in the db server, @LastModifiedBy will be found by
+//our auditAwareImpl class we implemented

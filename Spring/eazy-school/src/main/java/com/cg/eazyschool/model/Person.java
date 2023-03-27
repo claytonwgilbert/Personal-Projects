@@ -3,14 +3,19 @@ package com.cg.eazyschool.model;
 import com.cg.eazyschool.annotation.FieldsValueMatch;
 import com.cg.eazyschool.annotation.PasswordValidator;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 //Populating the list aspect of the FieldsValueMatch so that our validator can access the fields now populated in this class using the field() and fieldMatch() methods which will access the field and fieldMatch property set here
 @FieldsValueMatch.List({
@@ -65,4 +70,16 @@ public class Person extends BaseEntity {
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL, targetEntity = Address.class)
     @JoinColumn(name = "address_id", referencedColumnName = "addressId", nullable = true)
     private Address address;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = EazyClass.class)
+    @JoinColumn(name = "class_id", referencedColumnName = "classId", nullable = true)
+    private EazyClass eazyClass;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "person_courses",
+            joinColumns = {
+                    @JoinColumn(name = "person_id", referencedColumnName = "personId")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "course_id", referencedColumnName = "courseId")})
+    private Set<Courses> courses = new HashSet<>();
 }

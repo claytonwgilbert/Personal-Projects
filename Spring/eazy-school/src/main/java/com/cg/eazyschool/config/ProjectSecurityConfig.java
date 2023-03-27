@@ -24,6 +24,11 @@ public class ProjectSecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .mvcMatchers("/dashboard").authenticated()
+                .mvcMatchers("/displayProfile").authenticated()
+                .mvcMatchers("/updateProfile").authenticated()
+                .mvcMatchers("/displayMessages/**").hasRole("ADMIN")
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .mvcMatchers("/student/**").hasRole("STUDENT")
                 .mvcMatchers("/home").permitAll()
                 .mvcMatchers("/holidays/**").permitAll()
                 .mvcMatchers("/contact").permitAll()
@@ -56,6 +61,12 @@ public class ProjectSecurityConfig {
     }
 
     @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+/*
+    In memory authentication impl
+    @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("user")
@@ -69,5 +80,5 @@ public class ProjectSecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
-    }
+    }*/
 }
