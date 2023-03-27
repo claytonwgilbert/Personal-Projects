@@ -47,15 +47,16 @@ public class ContactController {
                                         @RequestParam("sortField") String sortField,
                                         @RequestParam("sortDir") String sortDir,
                                         Model model){
-        Page<Contact> messages = contactService.findMsgsWithOpenStatus(pageNum, sortField, sortDir);
+        Page<Contact> messages = contactService.findMsgsWithOpenStatus(pageNum, sortField, sortDir); //Passing in initial values needed for pagination via url parameters
         List<Contact> contactMessages = messages.getContent();
         ModelAndView viewMessages = new ModelAndView("messages");
+        //Passing all relevant pagination info back to ui for displaying
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", messages.getTotalPages());
         model.addAttribute("totalMsgs", messages.getTotalElements());
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc"); //toggling the current sort dir so that user can change it to the opposite sort dir each click, otherwise it would never change
 
         viewMessages.addObject("contactMsgs", contactMessages);
 

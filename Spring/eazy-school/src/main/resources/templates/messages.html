@@ -78,6 +78,7 @@
     <div class="pagination-style text-center mt-5">
         <ul>
             <li>
+                <!--Only allowing << arrow to be visible if page number currently on is > 1 otherwise disable it using the unless tag below-->
                 <a th:if="${currentPage > 1}" th:href="@{'/displayMessages/page/' + ${currentPage - 1}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
                     <span class="fa fa-angle-double-left" aria-hidden="true"></span>
                 </a>
@@ -85,13 +86,16 @@
                     <span class="fa fa-angle-double-left" aria-hidden="true"></span>
                 </a>
             </li>
+            <!--Displaying all the numbers in the pagination up to total pages variable sent through the model-->
             <span th:each="i: ${#numbers.sequence(1, totalPages)}">
             <li>
+                <!--If we're not on current page, then when clicking a different number should navigate us to that page, otherwise don't do anything which is what is shown in the unless tag -->
                 <a th:if="${currentPage != i}" th:href="@{'/displayMessages/page/' + ${i}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
                 <a class="active" th:unless="${currentPage != i}">[[${i}]]</a>
             </li>
             </span>
             <li>
+                <!--Same situation with the << arrow but for the right side >>-->
                 <a th:if="${currentPage < totalPages}" th:href="@{'/displayMessages/page/' + ${currentPage + 1}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
                     <span class="fa fa-angle-double-right" aria-hidden="true"></span>
                 </a>

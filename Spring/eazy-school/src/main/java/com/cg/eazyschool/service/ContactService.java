@@ -37,9 +37,10 @@ public class ContactService {
     }
 
     public Page<Contact> findMsgsWithOpenStatus(int pageNum, String sortField, String sortDir){
+        //Creating pagination object to send back to the UI
         int pageSize = 5;
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
-                sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortDir).descending());
+                sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
 
         Page<Contact> foundContacts = contactsRepository.findByStatus(EazySchoolConstants.OPEN, pageable);
 
