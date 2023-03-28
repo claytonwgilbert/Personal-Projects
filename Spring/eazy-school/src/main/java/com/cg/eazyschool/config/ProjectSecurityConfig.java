@@ -29,6 +29,7 @@ public class ProjectSecurityConfig {
                 .mvcMatchers("/displayMessages/**").hasRole("ADMIN")
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .mvcMatchers("/student/**").hasRole("STUDENT")
+                .mvcMatchers("/api/**").authenticated()
                 .mvcMatchers("/home").permitAll()
                 .mvcMatchers("/holidays/**").permitAll()
                 .mvcMatchers("/contact").permitAll()

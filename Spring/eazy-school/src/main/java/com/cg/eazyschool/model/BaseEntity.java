@@ -1,5 +1,6 @@
 package com.cg.eazyschool.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,15 +17,19 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class) //AuditingEntityListener.class comes with Spring Data and works with annotations like @LastModifiedBy @LastModifiedDate @CreatedBy and @CreatedDate
 public class BaseEntity {
+    @JsonIgnore //Allows us to skip sending these properties back during a rest response
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
+    @JsonIgnore
     @CreatedBy
     @Column(updatable = false)
     private String createdBy;
+    @JsonIgnore
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime updatedAt;
+    @JsonIgnore
     @LastModifiedBy
     @Column(insertable = false)
     private String updatedBy;
