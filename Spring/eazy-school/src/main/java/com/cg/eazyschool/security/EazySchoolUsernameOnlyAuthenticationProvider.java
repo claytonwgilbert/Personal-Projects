@@ -13,16 +13,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Profile("prod")
-public class EazySchoolUsernamePwdAuthenticationProvider implements AuthenticationProvider {
+@Profile("uat") //Only validates username...practicing creating beans depending on active profile
+public class EazySchoolUsernameOnlyAuthenticationProvider implements AuthenticationProvider {
     private PersonRepository personRepository;
     private PasswordEncoder passwordEncoder;
 
-    public EazySchoolUsernamePwdAuthenticationProvider(PersonRepository personRepository, PasswordEncoder passwordEncoder) {
+    public EazySchoolUsernameOnlyAuthenticationProvider(PersonRepository personRepository, PasswordEncoder passwordEncoder) {
         this.personRepository = personRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -32,7 +33,7 @@ public class EazySchoolUsernamePwdAuthenticationProvider implements Authenticati
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
         Person person = personRepository.readByEmail(email);
-        if(person != null && person.getPersonId() > 0 && passwordEncoder.matches(password, person.getPwd())){ //Password encoder compares the hashed pw from the db to the plain text one from the form
+        if(person != null && person.getPersonId() > 0){ //Does not check pw
             //Returning email in our token since we need that email field from the authenticator object in our dashboard controller
             return new UsernamePasswordAuthenticationToken(email, null, getGrantedAuthorities(person.getRoles())); //returning null so that we don't compromise our password by putting it in risk of being intercepted from the security token
         }else{

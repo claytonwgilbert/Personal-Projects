@@ -1,9 +1,11 @@
 package com.cg.eazyschool.service;
 
+import com.cg.eazyschool.config.EazySchoolProps;
 import com.cg.eazyschool.model.Contact;
 import com.cg.eazyschool.model.EazySchoolConstants;
 import com.cg.eazyschool.repository.ContactsRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,10 @@ import java.util.Optional;
 @Slf4j
 public class ContactService {
     private ContactsRepository contactsRepository;
+
+    //Practicing @ConfigurationProperties
+    @Autowired
+    private EazySchoolProps eazySchoolProps;
 
     public ContactService(ContactsRepository contactsRepository) {
         this.contactsRepository = contactsRepository;
@@ -38,7 +44,12 @@ public class ContactService {
 
     public Page<Contact> findMsgsWithOpenStatus(int pageNum, String sortField, String sortDir){
         //Creating pagination object to send back to the UI
-        int pageSize = 5;
+        //Setting page size to global one...
+        int pageSize = eazySchoolProps.getPageSize();
+        //Checking if we have a contact specific page size and if so...set page size to that in configuration file
+        if(eazySchoolProps.getContact() != null || eazySchoolProps.getContact().get("pageSize") != null){
+            pageSize = Integer.parseInt(eazySchoolProps.getContact().get("pageSize").trim());
+        }
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
                 sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
 
