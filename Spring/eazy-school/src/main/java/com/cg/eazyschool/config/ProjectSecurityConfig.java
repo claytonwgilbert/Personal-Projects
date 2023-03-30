@@ -22,6 +22,7 @@ public class ProjectSecurityConfig {
                 .ignoringAntMatchers("/public/**")
                 .ignoringAntMatchers("/api/**")
                 .ignoringAntMatchers("/data-api/**")
+                .ignoringAntMatchers("/eazyschool/actuator/**")
                 //.ignoringAntMatchers("/h2-console/**").and().authorizeHttpRequests().mvcMatchers("/h2-console/**").permitAll().and().headers().frameOptions().disable() //Allow H2 Console DB access
                 .and()
                 .authorizeHttpRequests()
@@ -30,6 +31,7 @@ public class ProjectSecurityConfig {
                 .mvcMatchers("/updateProfile").authenticated()
                 .mvcMatchers("/displayMessages/**").hasRole("ADMIN")
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .mvcMatchers("/eazyschool/actuator/**").hasRole("ADMIN")
                 .mvcMatchers("/student/**").hasRole("STUDENT")
                 .mvcMatchers("/api/**").authenticated()
                 .mvcMatchers("/data-api/**").authenticated()
