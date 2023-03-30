@@ -42,7 +42,7 @@ public class ContactService {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
                 sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
 
-        Page<Contact> foundContacts = contactsRepository.findByStatus(EazySchoolConstants.OPEN, pageable);
+        Page<Contact> foundContacts = contactsRepository.findByStatusQuery(EazySchoolConstants.OPEN, pageable);
 
         return foundContacts;
     }
