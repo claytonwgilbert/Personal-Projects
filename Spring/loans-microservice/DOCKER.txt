@@ -1,0 +1,12 @@
+You can use maven to automatically generate docker image using following command:
+
+mvn spring-boot:build-image
+
+Need following in plugin of your pom.xml file:
+
+					<image>
+						<name>cg/${project.artifactId}</name>
+					</image>
+
+
+
