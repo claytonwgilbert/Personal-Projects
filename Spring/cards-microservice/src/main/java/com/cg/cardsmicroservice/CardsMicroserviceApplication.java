@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ComponentScans;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScans({ @ComponentScan("com.cg.cardsmicroservice.controllers") })
 @EnableJpaRepositories("com.cg.cardsmicroservice.repository")
 @EntityScan("com.cg.cardsmicroservice.model")
 public class CardsMicroserviceApplication {

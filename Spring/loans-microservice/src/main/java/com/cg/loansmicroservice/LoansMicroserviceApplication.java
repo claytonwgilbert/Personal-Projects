@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ComponentScans;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScans({ @ComponentScan("com.cg.loansmicroservice.controller") })
 @EnableJpaRepositories("com.cg.loansmicroservice.repository")
 @EntityScan("com.cg.loansmicroservice.model")
 public class LoansMicroserviceApplication {
