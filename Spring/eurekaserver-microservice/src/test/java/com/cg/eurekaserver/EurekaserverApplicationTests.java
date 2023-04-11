@@ -1,14 +1,13 @@
-package com.cg.accountsmicroservice;
+package com.cg.eurekaserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AccountsMicroserviceApplicationTests {
+class EurekaserverApplicationTests {
 
 	@Test
 	void contextLoads() {
-
 	}
 
 }

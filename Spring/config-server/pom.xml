@@ -53,7 +53,7 @@
 			<configuration>
 				<!--Needed for docker image creation through mvn command line-->
 				<image>
-					<name>cg/${project.artifactId}</name>
+					<name>cjsm12/${project.artifactId}</name>
 				</image>
 			</configuration>
 			</plugin>
